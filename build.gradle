@@ -1,0 +1,13 @@
+plugins {
+    id 'java'
+}
+
+group 'ru.maxim.borisov'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+}
