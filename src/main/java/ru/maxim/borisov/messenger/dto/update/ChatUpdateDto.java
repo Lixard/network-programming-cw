@@ -1,12 +1,12 @@
-package ru.maxim.borisov.messenger.dto.get;
+package ru.maxim.borisov.messenger.dto.update;
 
 import java.util.List;
 
-public class ChatGetDto {
+public class ChatUpdateDto {
 
     private Long id;
     private String name;
-    private List<UserGetDto> participations;
+    private List<Long> participationIds;
 
     public Long getId() {
         return id;
@@ -24,11 +24,11 @@ public class ChatGetDto {
         this.name = name;
     }
 
-    public List<UserGetDto> getParticipations() {
-        return participations;
+    public List<Long> getParticipationIds() {
+        return participationIds;
     }
 
-    public void setParticipations(List<UserGetDto> participations) {
-        this.participations = participations;
+    public void setParticipationIds(List<Long> participationIds) {
+        this.participationIds = participationIds;
     }
 }
