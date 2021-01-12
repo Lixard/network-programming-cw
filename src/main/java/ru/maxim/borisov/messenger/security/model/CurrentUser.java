@@ -5,4 +5,6 @@ public interface CurrentUser {
     Long getId();
 
     String getUsername();
+
+    boolean getAuthenticated();
 }

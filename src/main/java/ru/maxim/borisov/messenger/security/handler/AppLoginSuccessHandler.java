@@ -25,6 +25,7 @@ public class AppLoginSuccessHandler implements AuthenticationSuccessHandler {
         final var principal = (CurrentUser) authentication.getPrincipal();
         final var loginSuccessModel = new LoginSuccessModel(principal);
         response.setStatus(HttpServletResponse.SC_OK);
+        loginSuccessModel.setAuthenticated(true);
         response.getWriter().print(OBJECT_MAPPER.writeValueAsString(loginSuccessModel));
     }
 }

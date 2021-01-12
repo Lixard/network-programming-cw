@@ -21,12 +21,17 @@ public class CurrentUserConfig {
             return new CurrentUser() {
                 @Override
                 public Long getId() {
-                    return null;
+                    return -1L;
                 }
 
                 @Override
                 public String getUsername() {
                     return null;
+                }
+
+                @Override
+                public boolean getAuthenticated() {
+                    return false;
                 }
             };
         }

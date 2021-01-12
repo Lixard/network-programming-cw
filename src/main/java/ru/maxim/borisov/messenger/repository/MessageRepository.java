@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface MessageRepository extends JpaRepository<Message, Long> {
 
-    @Query("select count(MessageStatus.id.messageId) as unreadMessagesCount "
+    @Query("select count(m) "
             + "from MessageStatus ms "
             + "join Message m "
             + "where ms.isRead = false and m.chat.id in :chatIds and ms.user.id = :userId "

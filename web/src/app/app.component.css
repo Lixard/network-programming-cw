@@ -1,0 +1,4 @@
+.unscrollable {
+  height: calc(100% - 64px);
+  overflow-y: auto;
+}

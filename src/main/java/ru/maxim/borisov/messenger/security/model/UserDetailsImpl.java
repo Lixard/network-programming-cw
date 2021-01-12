@@ -36,6 +36,11 @@ public class UserDetailsImpl implements UserDetails, CurrentUser {
     }
 
     @Override
+    public boolean getAuthenticated() {
+        return true;
+    }
+
+    @Override
     public boolean isAccountNonExpired() {
         return true;
     }
