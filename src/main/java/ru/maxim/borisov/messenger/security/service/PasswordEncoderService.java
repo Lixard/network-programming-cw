@@ -1,6 +1,6 @@
 package ru.maxim.borisov.messenger.security.service;
 
-public interface IPasswordEncoderService {
+public interface PasswordEncoderService {
 
     String encode(final String password);
 

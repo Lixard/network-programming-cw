@@ -6,20 +6,20 @@ import ru.maxim.borisov.messenger.dto.create.UserCreateDto;
 import ru.maxim.borisov.messenger.dto.get.UserGetDto;
 import ru.maxim.borisov.messenger.mapper.UserMapper;
 import ru.maxim.borisov.messenger.repository.UserRepository;
-import ru.maxim.borisov.messenger.security.service.IPasswordEncoderService;
-import ru.maxim.borisov.messenger.service.IUserService;
+import ru.maxim.borisov.messenger.security.service.PasswordEncoderService;
+import ru.maxim.borisov.messenger.service.UserService;
 
 @Service
-public class UserServiceImpl implements IUserService {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-    private final IPasswordEncoderService encoderService;
+    private final PasswordEncoderService encoderService;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository,
                            UserMapper userMapper,
-                           IPasswordEncoderService encoderService) {
+                           PasswordEncoderService encoderService) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
         this.encoderService = encoderService;
