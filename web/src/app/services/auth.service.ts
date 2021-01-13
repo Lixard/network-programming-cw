@@ -5,18 +5,17 @@ import { LoginData } from '../models/login-data.model';
 import { CurrentUser, User } from '../models/user.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   readonly user$ = new BehaviorSubject<CurrentUser>(null);
 
   constructor(private http: HttpClient) {
   }
 
   initialize(): Promise<void> {
-    return new Promise<void>(resolve => {
-      this.loadProfile().subscribe(profile => {
+    return new Promise<void>((resolve) => {
+      this.loadProfile().subscribe((profile) => {
         this.user$.next(profile);
         resolve();
       });
@@ -31,15 +30,15 @@ export class AuthService {
     const params = new HttpParams({
       fromObject: {
         username: data.username,
-        password: data.password
-      }
+        password: data.password,
+      },
     });
 
     const myHeaders = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded'
+      'Content-Type': 'application/x-www-form-urlencoded',
     });
     return this.http.post<void>('/api/auth/login', params.toString(), {
-      headers: myHeaders
+      headers: myHeaders,
     });
   }
 
@@ -50,7 +49,6 @@ export class AuthService {
   register(user: User): Observable<void> {
     return this.http.post<void>('/api/users', user);
   }
-
 }
 
 export function loadCurrentUser(authService: AuthService): () => Promise<void> {
@@ -61,5 +59,5 @@ export const LOAD_CURRENT_USER_INITIALIZER: Provider = {
   provide: APP_INITIALIZER,
   useFactory: loadCurrentUser,
   multi: true,
-  deps: [AuthService]
+  deps: [AuthService],
 };

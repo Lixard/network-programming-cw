@@ -25,7 +25,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     ReactiveFormsModule,
     AuthRoutingModule,
     MatInputModule,
-    FlexLayoutModule
+    FlexLayoutModule,
   ],
   providers: [LOAD_CURRENT_USER_INITIALIZER],
 })

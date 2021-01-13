@@ -17,6 +17,10 @@ const routes: Routes = [
     path: 'register',
     component: RegisterPageComponent,
   },
+  {
+    path: 'chat',
+    loadChildren: () => import('../chat/chat-routing.module').then((m) => m.ChatRoutingModule),
+  },
 ];
 
 @NgModule({

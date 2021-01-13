@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { AuthModule } from './auth/auth.module';
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ChatModule } from './chat/chat.module';
 
 @NgModule({
   declarations: [AppComponent, MainToolbarComponent],
@@ -29,7 +30,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatIconModule,
     MatButtonModule,
     AuthModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    ChatModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

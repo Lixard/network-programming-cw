@@ -5,8 +5,7 @@
         <div fxLayout="column">
           <mat-form-field>
             <mat-label>Никнейм</mat-label>
-            <input formControlName="username"
-                   matInput>
+            <input formControlName="username" matInput/>
             <mat-error *ngIf="form.get('username').hasError('required')"
             >Укажите никнейм
             </mat-error>
@@ -14,17 +13,20 @@
 
           <mat-form-field>
             <mat-label>Пароль</mat-label>
-            <input [type]="hidePassword ? 'password' : 'text'"
-                   formControlName="password"
-                   matInput>
-            <mat-error *ngIf="form.get('password').hasError('required')"
-            >Укажите пароль
-            </mat-error>
-            <button (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
-                    [attr.aria-pressed]="hidePassword"
-                    mat-icon-button
-                    matSuffix>
-              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <input
+              [type]="hidePassword ? 'password' : 'text'"
+              formControlName="password"
+              matInput
+            />
+            <mat-error *ngIf="form.get('password').hasError('required')">Укажите пароль</mat-error>
+            <button
+              (click)="hidePassword = !hidePassword"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hidePassword"
+              mat-icon-button
+              matSuffix
+            >
+              <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
             </button>
           </mat-form-field>
           <mat-error *ngIf="form.get('username').hasError('login-incorrect')"
@@ -33,11 +35,17 @@
         </div>
       </mat-card-content>
       <mat-card-actions>
-        <button (click)="login(form.value)" [disabled]="!form.valid"
-                class="login-button"
-                color="primary"
-                mat-flat-button>
+        <button
+          (click)="login(form.value)"
+          [disabled]="!form.valid"
+          class="login-button"
+          color="primary"
+          mat-flat-button
+        >
           Войти
+        </button>
+        <button class="login-button" mat-flat-button routerLink="/register">
+
         </button>
       </mat-card-actions>
     </mat-card>
