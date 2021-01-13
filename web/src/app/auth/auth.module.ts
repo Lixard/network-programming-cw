@@ -29,5 +29,4 @@ import { FlexLayoutModule } from '@angular/flex-layout';
   ],
   providers: [LOAD_CURRENT_USER_INITIALIZER],
 })
-export class AuthModule {
-}
+export class AuthModule {}

@@ -1,0 +1,64 @@
+mat-sidenav {
+  width: 250px;
+  background-color: #fafafa;
+}
+
+.mat-badge {
+  display: table-caption;
+}
+
+.sidenav-content {
+  background-color: white;
+}
+
+.sidenav-container {
+  height: 100vh;
+  position: relative;
+}
+
+.mat-nav-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.mat-elevation-z5 {
+  position: relative;
+  z-index: 2;
+}
+
+.gray-sidenav {
+  background-color: #f5f5f5 !important;
+  overflow-x: hidden;
+}
+
+.flex-container {
+  display: flex;
+}
+
+.header-list-item, .header-list-item:hover {
+  background-color: #e5e5e5;
+}
+
+.full-width-sidenav {
+  width: 15%;
+}
+
+.minimize-width-sidenav {
+  width: 60px;
+}
+
+.full-width-content {
+  margin-left: 15% !important;
+}
+
+.minimize-width-content {
+  margin-left: 60px !important;
+}
+
+.step-right {
+  padding-left: 5px;
+}

@@ -1,1 +1,17 @@
-<p>main-chat-page works!</p>
+<app-main-toolbar></app-main-toolbar>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav [disableClose]="true" [opened]="true" class="gray-sidenav" mode="side">
+    <mat-nav-list>
+      <!--      Вынести нахуй отсюда -->
+      <a
+        class="column col-sm-3 col-xs-1 sidebar-offcanvas"
+        mat-list-item
+        routerLink="current-surveys"
+      >
+        <mat-icon class="icon" matTooltip="Текущие опросы">chat</mat-icon>
+        <div class="pl-10">Chat1</div>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content> ТУТ БУДЕТ ЧАТ </mat-sidenav-content>
+</mat-sidenav-container>

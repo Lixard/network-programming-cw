@@ -56,10 +56,6 @@ export class RegisterPageComponent implements OnInit {
     this.form = this.fb.group({
       username: this.fb.control('', [Validators.required, Validators.maxLength(50)]),
       password: this.fb.control('', [Validators.required, Validators.minLength(8)]),
-      firstName: this.fb.control('', [Validators.required, Validators.maxLength(50)]),
-      lastName: this.fb.control('', [Validators.required, Validators.maxLength(50)]),
-      email: this.fb.control('', [Validators.required, Validators.email, Validators.maxLength(50)]),
-      role: this.fb.control(undefined, Validators.required),
     });
   }
 }
