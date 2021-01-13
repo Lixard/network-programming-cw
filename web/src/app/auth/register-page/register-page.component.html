@@ -1,1 +1,58 @@
-<p>register-page works!</p>
+<div fxLayout fxLayoutAlign="center center">
+  <div class="register">
+    <form [formGroup]="form">
+      <mat-card class="register-card">
+        <mat-card-content>
+          <div fxLayout="column">
+            <span fxLayoutAlign="center center">Зарегистрируйтесь</span>
+            <mat-form-field>
+              <mat-label>Никнейм</mat-label>
+              <input formControlName="username" matInput />
+              <mat-error *ngIf="form.get('username').hasError('required')"
+                >Укажите никнейм
+              </mat-error>
+              <mat-error *ngIf="form.get('username').hasError('maxlength')"
+                >Не может быть больше 60 символов
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Пароль</mat-label>
+              <input
+                [type]="hidePassword ? 'password' : 'text'"
+                formControlName="password"
+                matInput
+              />
+              <mat-error *ngIf="form.get('password').hasError('required')"
+                >Укажите пароль
+              </mat-error>
+              <button
+                (click)="hidePassword = !hidePassword"
+                [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hidePassword"
+                mat-icon-button
+                matSuffix
+              >
+                <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+              </button>
+            </mat-form-field>
+            <mat-error *ngIf="form.get('username').hasError('unknown-error')"
+              >Произошла ошибка. Возможно такой никнейм уже существует.
+            </mat-error>
+          </div>
+        </mat-card-content>
+        <mat-card-actions fxLayoutAlign="center center">
+          <button
+            (click)="register(form.value)"
+            [disabled]="!form.valid"
+            class="register-button"
+            color="primary"
+            mat-flat-button
+            type="submit"
+          >
+            Зарегистрироваться
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  </div>
+</div>

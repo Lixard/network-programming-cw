@@ -3,6 +3,7 @@
     <mat-card>
       <mat-card-content>
         <div fxLayout="column">
+          <span fxLayoutAlign="center center">Войдите в аккаунт</span>
           <mat-form-field>
             <mat-label>Никнейм</mat-label>
             <input formControlName="username" matInput/>
@@ -29,24 +30,26 @@
               <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
             </button>
           </mat-form-field>
-          <mat-error *ngIf="form.get('username').hasError('login-incorrect')"
-          >Некорректные данные
+          <mat-error *ngIf="form.get('username').hasError('login-incorrect')">
+            Некорректные данные
           </mat-error>
         </div>
       </mat-card-content>
       <mat-card-actions>
-        <button
-          (click)="login(form.value)"
-          [disabled]="!form.valid"
-          class="login-button"
-          color="primary"
-          mat-flat-button
-        >
-          Войти
-        </button>
-        <button class="login-button" mat-flat-button routerLink="/register">
-
-        </button>
+        <div fxLayoutAlign="center center" fxLayoutGap="5px">
+          <button
+            (click)="login(form.value)"
+            [disabled]="!form.valid"
+            class="login-button"
+            color="primary"
+            mat-flat-button
+          >
+            Войти
+          </button>
+          <button class="login-button" color="primary" mat-flat-button routerLink="/register">
+            Регистрация
+          </button>
+        </div>
       </mat-card-actions>
     </mat-card>
   </form>

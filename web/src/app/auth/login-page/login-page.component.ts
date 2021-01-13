@@ -20,8 +20,7 @@ export class LoginPageComponent implements OnInit {
     private formBuilder: FormBuilder,
     private auth: AuthService,
     private router: Router,
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.buildForm();

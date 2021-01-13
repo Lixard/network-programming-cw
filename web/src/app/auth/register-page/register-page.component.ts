@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { User } from '../../models/user.model';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-register-page',
@@ -6,9 +11,55 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./register-page.component.css'],
 })
 export class RegisterPageComponent implements OnInit {
-  constructor() {
+  form: FormGroup;
+  user: User;
+
+  hidePassword = true;
+
+  constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) {
+    this.buildForm();
   }
 
   ngOnInit(): void {
+    this.form.reset();
+  }
+
+  register(form: User) {
+    this.user = ({
+      username: form.username,
+      password: form.password,
+    } as unknown) as User;
+    this.auth.register(this.user).subscribe(
+      () => {
+        this.auth
+          .login({
+            username: form.username,
+            password: form.password,
+          })
+          .pipe(switchMap(() => this.auth.loadProfile()))
+          .subscribe(() => {
+            this.auth.loadProfile().subscribe((profile) => {
+              this.auth.user$.next(profile);
+              this.router.navigateByUrl(`/chat`);
+            });
+          });
+      },
+      () => {
+        this.form.controls.username.setErrors({
+          'unknown-error': true,
+        });
+      },
+    );
+  }
+
+  private buildForm(): void {
+    this.form = this.fb.group({
+      username: this.fb.control('', [Validators.required, Validators.maxLength(50)]),
+      password: this.fb.control('', [Validators.required, Validators.minLength(8)]),
+      firstName: this.fb.control('', [Validators.required, Validators.maxLength(50)]),
+      lastName: this.fb.control('', [Validators.required, Validators.maxLength(50)]),
+      email: this.fb.control('', [Validators.required, Validators.email, Validators.maxLength(50)]),
+      role: this.fb.control(undefined, Validators.required),
+    });
   }
 }
