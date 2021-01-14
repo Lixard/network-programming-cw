@@ -1,1 +1,10 @@
-<mat-toolbar class="mat-elevation-z4" color="primary"> </mat-toolbar>
+<mat-toolbar class="mat-elevation-z4" color="primary">
+  <button [mat-menu-trigger-for]="menu" mat-button>
+    {{ (auth.user$ | async)?.username }}
+    <mat-icon>keyboard_arrow_down</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>Профиль</button>
+    <button mat-menu-item (click)="logout()">Выйти</button>
+  </mat-menu>
+</mat-toolbar>

@@ -1,6 +1,6 @@
 import { APP_INITIALIZER, Injectable, Provider } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { LoginData } from '../models/login-data.model';
 import { CurrentUser, User } from '../models/user.model';
 
@@ -8,10 +8,9 @@ import { CurrentUser, User } from '../models/user.model';
   providedIn: 'root',
 })
 export class AuthService {
-  readonly user$ = new BehaviorSubject<CurrentUser>(null);
+  readonly user$ = new ReplaySubject<CurrentUser>(1);
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   initialize(): Promise<void> {
     return new Promise<void>((resolve) => {

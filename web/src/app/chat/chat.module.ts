@@ -27,6 +27,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MainToolbarComponent } from './main-chat-page/components/main-toolbar/main-toolbar.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [MainChatPageComponent, MainToolbarComponent],
@@ -57,6 +58,7 @@ import { MainToolbarComponent } from './main-chat-page/components/main-toolbar/m
     MatSliderModule,
     MatAutocompleteModule,
     FlexLayoutModule,
+    RouterModule,
   ],
   exports: [MainChatPageComponent],
 })

@@ -39,7 +39,8 @@ mat-sidenav {
   display: flex;
 }
 
-.header-list-item, .header-list-item:hover {
+.header-list-item,
+.header-list-item:hover {
   background-color: #e5e5e5;
 }
 
