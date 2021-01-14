@@ -1,0 +1,11 @@
+<a class="sidebar-offcanvas" mat-list-item>
+  <mat-icon class="icon">chat</mat-icon>
+  <div
+    [matBadgeHidden]="unreadMessages === 0"
+    [matBadgeOverlap]="false"
+    [matBadge]="unreadMessages.toString()"
+    class="pl-10 step-right"
+  >
+    {{ chat.name }}
+  </div>
+</a>

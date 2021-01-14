@@ -3,12 +3,9 @@ mat-sidenav {
   background-color: #fafafa;
 }
 
-.mat-badge {
-  display: table-caption;
-}
-
-.sidenav-content {
-  background-color: white;
+.mat-nav-list {
+  display: flex;
+  flex-direction: column;
 }
 
 .sidenav-container {
@@ -16,9 +13,8 @@ mat-sidenav {
   position: relative;
 }
 
-.mat-nav-list {
-  display: flex;
-  flex-direction: column;
+mat-sidenav-content {
+  background: #ffffff;
 }
 
 .spacer {
@@ -30,14 +26,6 @@ mat-sidenav {
   z-index: 2;
 }
 
-.gray-sidenav {
-  background-color: #f5f5f5 !important;
-  overflow-x: hidden;
-}
-
-.flex-container {
-  display: flex;
-}
 
 .header-list-item,
 .header-list-item:hover {
@@ -58,8 +46,4 @@ mat-sidenav {
 
 .minimize-width-content {
   margin-left: 60px !important;
-}
-
-.step-right {
-  padding-left: 5px;
 }

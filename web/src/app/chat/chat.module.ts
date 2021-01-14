@@ -28,9 +28,11 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MainToolbarComponent } from './main-chat-page/components/main-toolbar/main-toolbar.component';
 import { RouterModule } from '@angular/router';
+import { ChatNavElementComponent } from './main-chat-page/components/chat-nav-element/chat-nav-element.component';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
-  declarations: [MainChatPageComponent, MainToolbarComponent],
+  declarations: [MainChatPageComponent, MainToolbarComponent, ChatNavElementComponent],
   imports: [
     CommonModule,
     ChatRoutingModule,
@@ -59,7 +61,7 @@ import { RouterModule } from '@angular/router';
     MatAutocompleteModule,
     FlexLayoutModule,
     RouterModule,
+    MatBadgeModule,
   ],
-  exports: [MainChatPageComponent],
 })
 export class ChatModule {}
