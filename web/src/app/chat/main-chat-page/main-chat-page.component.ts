@@ -24,9 +24,11 @@ export class MainChatPageComponent implements OnInit {
   }
 
   createChat() {
-    const dialogRef = this.dialog.open(ChatCreateDialogComponent);
+    const dialogRef = this.dialog.open(ChatCreateDialogComponent, {
+      width: '400px',
+    });
 
-    dialogRef.afterClosed().subscribe((data) => {
+    dialogRef.afterClosed().subscribe(() => {
       console.log('dialog closed');
     });
   }

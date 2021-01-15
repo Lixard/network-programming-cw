@@ -1,2 +1,11 @@
-<h1 mat-dialog-title>hi!</h1>
-<div mat-dialog-content>HI!</div>
+<h1 mat-dialog-title>Создание чата</h1>
+<div class="flex" mat-dialog-content>
+  <form [formGroup]="form" class="flex">
+    <mat-form-field>
+      <mat-label>Название</mat-label>
+      <input formControlName="name" matInput />
+      <mat-error *ngIf="form.get('name').hasError('required')">Укажите название</mat-error>
+    </mat-form-field>
+    <button mat-flat-button matSuffix>Создать</button>
+  </form>
+</div>

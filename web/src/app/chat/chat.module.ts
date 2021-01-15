@@ -31,6 +31,7 @@ import { RouterModule } from '@angular/router';
 import { ChatNavElementComponent } from './main-chat-page/components/chat-nav-element/chat-nav-element.component';
 import { MatBadgeModule } from '@angular/material/badge';
 import { ChatCreateDialogComponent } from './main-chat-page/components/_dialogs/chat-create-dialog/chat-create-dialog.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { ChatCreateDialogComponent } from './main-chat-page/components/_dialogs/
     FlexLayoutModule,
     RouterModule,
     MatBadgeModule,
+    ReactiveFormsModule,
   ],
 })
 export class ChatModule {}
