@@ -10,40 +10,23 @@ mat-sidenav {
 
 .sidenav-container {
   height: 100vh;
-  position: relative;
 }
 
 mat-sidenav-content {
   background: #ffffff;
 }
 
-.spacer {
-  flex: 1 1 auto;
+.add-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 5px;
 }
 
-.mat-elevation-z5 {
-  position: relative;
-  z-index: 2;
+.step-right {
+  padding-left: 20px;
 }
 
-
-.header-list-item,
-.header-list-item:hover {
-  background-color: #e5e5e5;
-}
-
-.full-width-sidenav {
-  width: 15%;
-}
-
-.minimize-width-sidenav {
-  width: 60px;
-}
-
-.full-width-content {
-  margin-left: 15% !important;
-}
-
-.minimize-width-content {
-  margin-left: 60px !important;
+.grey {
+  color: grey;
 }
