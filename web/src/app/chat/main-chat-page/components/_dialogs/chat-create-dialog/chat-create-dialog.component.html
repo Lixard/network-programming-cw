@@ -3,9 +3,40 @@
   <form [formGroup]="form" class="flex">
     <mat-form-field>
       <mat-label>Название</mat-label>
-      <input formControlName="name" matInput />
+      <input formControlName="name" matInput/>
       <mat-error *ngIf="form.get('name').hasError('required')">Укажите название</mat-error>
     </mat-form-field>
-    <button mat-flat-button matSuffix>Создать</button>
+    <mat-form-field>
+      <mat-label>Участники чата</mat-label>
+      <mat-chip-list #chipList>
+        <mat-chip
+          (removed)="removeChip(user)"
+          *ngFor="let user of selectedUsers"
+          [removable]="true"
+          [selectable]="true"
+        >
+          {{ user.username }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <input
+          #usersInput
+          (matChipInputTokenEnd)="addChip($event)"
+          [matAutocomplete]="auto"
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          formControlName="users"
+        />
+      </mat-chip-list>
+      <mat-autocomplete
+        #auto="matAutocomplete"
+        (optionSelected)="autocompleteSelected($event)"
+        [displayWith]="getOptionText"
+      >
+        <mat-option *ngFor="let user of filteredUsers | async" [value]="user.username">
+          {{ user.username }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <button (click)="createChat(form.value)" [disabled]="form.invalid" mat-flat-button matSuffix>Создать</button>
   </form>
 </div>

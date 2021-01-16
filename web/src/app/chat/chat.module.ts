@@ -32,6 +32,8 @@ import { ChatNavElementComponent } from './main-chat-page/components/chat-nav-el
 import { MatBadgeModule } from '@angular/material/badge';
 import { ChatCreateDialogComponent } from './main-chat-page/components/_dialogs/chat-create-dialog/chat-create-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatChipsModule } from '@angular/material/chips';
+import { ChatComponent } from './main-chat-page/components/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MainToolbarComponent,
     ChatNavElementComponent,
     ChatCreateDialogComponent,
+    ChatComponent,
   ],
   imports: [
     CommonModule,
@@ -70,6 +73,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     RouterModule,
     MatBadgeModule,
     ReactiveFormsModule,
+    MatChipsModule,
   ],
 })
 export class ChatModule {}

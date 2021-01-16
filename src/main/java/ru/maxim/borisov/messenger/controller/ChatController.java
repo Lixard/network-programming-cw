@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.maxim.borisov.messenger.dto.create.ChatCreateDto;
 import ru.maxim.borisov.messenger.dto.get.ChatGetDto;
+import ru.maxim.borisov.messenger.dto.get.MessageGetDto;
 import ru.maxim.borisov.messenger.dto.update.ChatUpdateDto;
 import ru.maxim.borisov.messenger.security.model.CurrentUser;
 import ru.maxim.borisov.messenger.service.ChatService;
@@ -40,6 +41,7 @@ public class ChatController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ChatGetDto create(@RequestBody ChatCreateDto chatCreateDto) {
+        chatCreateDto.setCreatedBy(currentUser.getId());
         return chatService.create(chatCreateDto);
     }
 
@@ -57,6 +59,11 @@ public class ChatController {
     @GetMapping("/{chatId}/unread")
     public Long getCurrentUserChatUnreadMessagesCount(@PathVariable Long chatId) {
         return messageService.getChatUnreadMessagesCountByCurrentUser(chatId, currentUser.getId());
+    }
+
+    @GetMapping("/{chatId}/messages")
+    public List<MessageGetDto> getAllMessages(@PathVariable Long chatId) {
+        return messageService.getAllMessages(chatId);
     }
 
 }

@@ -6,6 +6,8 @@ import ru.maxim.borisov.messenger.dto.create.UserCreateDto;
 import ru.maxim.borisov.messenger.dto.get.UserGetDto;
 import ru.maxim.borisov.messenger.entity.User;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
@@ -14,4 +16,6 @@ public interface UserMapper {
     @Mapping(target = "messageStatuses", ignore = true)
     @Mapping(target = "id", ignore = true)
     User fromCreateDto(UserCreateDto userCreateDto);
+
+    List<UserGetDto> toGetDto(List<User> users);
 }

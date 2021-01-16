@@ -1,0 +1,6 @@
+<div class="main-chat-field">
+  <mat-card *ngFor="let message of messages$ | async">
+    <mat-card-title>{{ message.sender.username }}</mat-card-title>
+    <mat-card-subtitle>{{ message.content }}</mat-card-subtitle>
+  </mat-card>
+</div>

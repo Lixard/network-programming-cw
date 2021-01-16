@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatService } from '../../services/chat.service';
-import { ChatListElement } from './models/chat.model';
+import { Chat } from '../../models/chat.model';
 import { Observable } from 'rxjs';
 import { ChatCreateDialogComponent } from './components/_dialogs/chat-create-dialog/chat-create-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -11,7 +11,8 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./main-chat-page.component.css'],
 })
 export class MainChatPageComponent implements OnInit {
-  chatListElements: ChatListElement[];
+  chatListElements: Chat[];
+  selectedChat: Chat;
 
   constructor(private chatService: ChatService, private dialog: MatDialog) {}
 
@@ -19,7 +20,7 @@ export class MainChatPageComponent implements OnInit {
     this.chatService.getUserChatList().subscribe((e) => (this.chatListElements = e));
   }
 
-  getChats(): Observable<ChatListElement[]> {
+  getChats(): Observable<Chat[]> {
     return this.chatService.getUserChatList();
   }
 
@@ -29,7 +30,12 @@ export class MainChatPageComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      console.log('dialog closed');
+      this.chatService.getUserChatList().subscribe((e) => (this.chatListElements = e));
     });
+  }
+
+  selectChat(chat: Chat) {
+    this.selectedChat = chat;
+    console.log(this.selectedChat);
   }
 }

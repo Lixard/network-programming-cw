@@ -14,6 +14,7 @@ mat-sidenav {
 
 mat-sidenav-content {
   background: #ffffff;
+  display: flex;
 }
 
 .add-button {

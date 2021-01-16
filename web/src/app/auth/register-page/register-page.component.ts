@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { User } from '../../models/user.model';
+import { UserForm } from '../../models/user.model';
 import { switchMap } from 'rxjs/operators';
 
 @Component({
@@ -12,7 +12,7 @@ import { switchMap } from 'rxjs/operators';
 })
 export class RegisterPageComponent implements OnInit {
   form: FormGroup;
-  user: User;
+  user: UserForm;
 
   hidePassword = true;
 
@@ -24,11 +24,11 @@ export class RegisterPageComponent implements OnInit {
     this.form.reset();
   }
 
-  register(form: User) {
+  register(form: UserForm) {
     this.user = ({
       username: form.username,
       password: form.password,
-    } as unknown) as User;
+    } as unknown) as UserForm;
     this.auth.register(this.user).subscribe(
       () => {
         this.auth

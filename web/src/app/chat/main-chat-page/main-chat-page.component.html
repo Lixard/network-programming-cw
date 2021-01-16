@@ -10,9 +10,11 @@
     <mat-nav-list class="mat-nav-list">
       <app-chat-nav-element
         *ngFor="let chat of chatListElements"
-        [chat]="chat"
+        (click)="selectChat(chat)" [chat]="chat"
       ></app-chat-nav-element>
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content>ТУТ БУДЕТ ЧАТ</mat-sidenav-content>
+  <mat-sidenav-content>
+    <app-chat *ngIf="selectedChat" [chat]="selectedChat"></app-chat>
+  </mat-sidenav-content>
 </mat-sidenav-container>

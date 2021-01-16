@@ -1,6 +1,11 @@
-export interface User {
+export interface UserForm {
   username: string;
   password: string;
+}
+
+export interface User {
+  id: number;
+  username: string;
 }
 
 export interface AuthenticatedUser {

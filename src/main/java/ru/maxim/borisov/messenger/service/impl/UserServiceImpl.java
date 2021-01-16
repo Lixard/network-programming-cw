@@ -9,6 +9,8 @@ import ru.maxim.borisov.messenger.repository.UserRepository;
 import ru.maxim.borisov.messenger.security.service.PasswordEncoderService;
 import ru.maxim.borisov.messenger.service.UserService;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -31,5 +33,10 @@ public class UserServiceImpl implements UserService {
         user.setPassword(encoderService.encode(user.getPassword()));
         final var userWithEncodedPass = userRepository.save(user);
         return userMapper.toGetDto(userWithEncodedPass);
+    }
+
+    @Override
+    public List<UserGetDto> getAll() {
+        return userMapper.toGetDto(userRepository.findAll());
     }
 }

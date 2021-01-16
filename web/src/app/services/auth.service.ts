@@ -2,7 +2,7 @@ import { APP_INITIALIZER, Injectable, Provider } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, ReplaySubject } from 'rxjs';
 import { LoginData } from '../models/login-data.model';
-import { CurrentUser, User } from '../models/user.model';
+import { CurrentUser, UserForm } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -45,7 +45,7 @@ export class AuthService {
     return this.http.get<void>('/api/auth/logout');
   }
 
-  register(user: User): Observable<void> {
+  register(user: UserForm): Observable<void> {
     return this.http.post<void>('/api/users', user);
   }
 }
