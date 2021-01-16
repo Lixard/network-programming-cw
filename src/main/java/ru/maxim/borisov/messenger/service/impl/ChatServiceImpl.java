@@ -33,7 +33,10 @@ public class ChatServiceImpl implements ChatService {
     @Override
     public ChatGetDto create(ChatCreateDto chatCreateDto) {
         final var chat = chatMapper.fromCreateDto(chatCreateDto);
-        chat.setUsers(formUsersFromIds(chatCreateDto.getParticipationIds()));
+        final var createdBy = chat.getCreatedBy();
+        final var users = formUsersFromIds(chatCreateDto.getParticipationIds());
+        users.add(createdBy);
+        chat.setUsers(users);
         final var saved = chatRepository.save(chat);
         return chatMapper.toGetDto(saved);
     }

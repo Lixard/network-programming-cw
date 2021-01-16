@@ -1,7 +1,7 @@
 import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { User } from '../../../../../models/user.model';
+import { CurrentUser, User } from '../../../../../models/user.model';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { UserService } from '../../../../../services/user.service';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
@@ -10,6 +10,7 @@ import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material
 import { map, startWith } from 'rxjs/operators';
 import { ChatCreate } from '../../../../../models/chat.model';
 import { ChatService } from '../../../../../services/chat.service';
+import { AuthService } from '../../../../../services/auth.service';
 
 @Component({
   selector: 'app-chat-create-dialog',
@@ -21,6 +22,7 @@ export class ChatCreateDialogComponent implements OnInit {
   users: User[];
   selectedUsers: User[] = [];
   filteredUsers: Observable<User[]>;
+  currentUser: CurrentUser;
 
   @ViewChild('usersInput') inputElement: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -32,6 +34,7 @@ export class ChatCreateDialogComponent implements OnInit {
     private fb: FormBuilder,
     private userService: UserService,
     private chatService: ChatService,
+    private authService: AuthService,
     @Inject(MAT_DIALOG_DATA) public data,
   ) {
     this.buildForm();
@@ -39,11 +42,14 @@ export class ChatCreateDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.getUsers().subscribe((u) => {
-      this.users = u;
-      this.filteredUsers = this.form.get('users').valueChanges.pipe(
-        startWith(''),
-        map((user: string) => this.filter(user)),
-      );
+      this.authService.user$.subscribe((cu) => {
+        this.currentUser = cu;
+        this.users = u;
+        this.filteredUsers = this.form.get('users').valueChanges.pipe(
+          startWith(''),
+          map((user: string) => this.filter(user)),
+        );
+      });
     });
   }
 
@@ -106,6 +112,7 @@ export class ChatCreateDialogComponent implements OnInit {
   private filter(value: string): User[] {
     const filterValue = value.toLowerCase();
     return this.users
+      .filter((u) => this.currentUser.username !== u.username)
       .filter((u) => u.username.toLowerCase().indexOf(filterValue) === 0)
       .filter((u) => !this.selectedUsers.includes(u));
   }
