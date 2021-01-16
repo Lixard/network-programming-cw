@@ -1,6 +1,20 @@
 <div class="main-chat-field">
-  <mat-card *ngFor="let message of messages$ | async">
-    <mat-card-title>{{ message.sender.username }}</mat-card-title>
-    <mat-card-subtitle>{{ message.content }}</mat-card-subtitle>
-  </mat-card>
+  <div class="messages">
+    <p>something</p>
+    <mat-card *ngFor="let message of messages$ | async">
+      <mat-card-title>{{ message.sender.username }}</mat-card-title>
+      <mat-card-subtitle>{{ message.content }}</mat-card-subtitle>
+      <mat-card-content></mat-card-content>
+    </mat-card>
+  </div>
+
+  <form [formGroup]="form" class="form">
+    <mat-form-field class="input-field">
+      <mat-label>Сообщение</mat-label>
+      <input formControlName="message" matInput />
+      <mat-error *ngIf="form.get('message').hasError('required')"
+        >Сообщение не должно быть пустым
+      </mat-error>
+    </mat-form-field>
+  </form>
 </div>
