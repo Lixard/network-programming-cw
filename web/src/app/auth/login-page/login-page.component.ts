@@ -8,7 +8,7 @@ import { LoginData } from '../../models/login-data.model';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.css'],
+  styleUrls: ['./login-page.component.scss'],
 })
 export class LoginPageComponent implements OnInit {
   form: FormGroup;

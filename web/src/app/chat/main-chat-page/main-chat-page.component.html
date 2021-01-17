@@ -1,20 +1,23 @@
-<app-main-toolbar></app-main-toolbar>
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav [disableClose]="true" [opened]="true" class="gray-sidenav" mode="side">
-    <div class="add-button">
-      <span class="step-right grey">Чаты</span>
-      <button (click)="createChat()" mat-icon-button>
-        <mat-icon>add</mat-icon>
-      </button>
-    </div>
-    <mat-nav-list class="mat-nav-list">
-      <app-chat-nav-element
-        *ngFor="let chat of chatListElements"
-        (click)="selectChat(chat)" [chat]="chat"
-      ></app-chat-nav-element>
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <app-chat *ngIf="selectedChat" [chat]="selectedChat"></app-chat>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<div class="fullscreen">
+  <app-main-toolbar></app-main-toolbar>
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav [disableClose]="true" [opened]="true" class="gray-sidenav" mode="side">
+      <div class="add-button">
+        <span class="step-right grey">Чаты</span>
+        <button (click)="createChat()" mat-icon-button>
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <mat-nav-list class="mat-nav-list">
+        <app-chat-nav-element
+          (click)="selectChat(chat)"
+          *ngFor="let chat of chatListElements"
+          [chat]="chat"
+        ></app-chat-nav-element>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <app-chat *ngIf="selectedChat" [chat]="selectedChat"></app-chat>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

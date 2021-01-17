@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-main-chat-page',
   templateUrl: './main-chat-page.component.html',
-  styleUrls: ['./main-chat-page.component.css'],
+  styleUrls: ['./main-chat-page.component.scss'],
 })
 export class MainChatPageComponent implements OnInit {
   chatListElements: Chat[];

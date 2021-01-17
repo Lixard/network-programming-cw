@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-chat-nav-element',
   templateUrl: './chat-nav-element.component.html',
-  styleUrls: ['./chat-nav-element.component.css'],
+  styleUrls: ['./chat-nav-element.component.scss'],
 })
 export class ChatNavElementComponent implements OnInit {
   @Input() chat: Chat;

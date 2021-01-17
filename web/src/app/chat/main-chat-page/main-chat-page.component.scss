@@ -1,3 +1,14 @@
+.fullscreen {
+  //display: flex;
+  //flex-direction: column;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+app-main-toolbar {
+}
+
 mat-sidenav {
   width: 250px;
   background-color: #fafafa;
@@ -9,11 +20,24 @@ mat-sidenav {
 }
 
 .sidenav-container {
+  flex-grow: 1;
+  position: fixed;
   height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
 }
 
 mat-sidenav-content {
   background: #ffffff;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  width: 100%;
+}
+
+app-chat {
+  height: 100%;
 }
 
 .add-button {

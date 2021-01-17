@@ -1,5 +1,4 @@
 .main-chat-field {
-  margin: 20px;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -9,7 +8,6 @@
 
 .messages {
   flex-grow: 1;
-  flex-shrink: 0;
   flex-basis: auto;
   background-color: green;
 }
