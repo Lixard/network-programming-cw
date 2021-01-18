@@ -9,6 +9,7 @@
 
 .messages {
   display: flex;
+  overflow: auto;
   justify-content: flex-start;
   flex-direction: column;
   flex-grow: 1;
