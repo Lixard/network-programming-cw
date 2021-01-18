@@ -23,7 +23,7 @@
       >Сообщение не должно быть пустым
       </mat-error>
     </mat-form-field>
-    <button (click)="send(form.value)" mat-icon-button>
+    <button (click)="send(form.value)" [disabled]="form.invalid" mat-icon-button>
       <mat-icon>send</mat-icon>
     </button>
   </form>
