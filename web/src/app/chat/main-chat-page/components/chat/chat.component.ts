@@ -1,26 +1,46 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Chat } from '../../../../models/chat.model';
-import { Observable } from 'rxjs';
-import { Message } from '../../../../models/message.model';
+import { Message, MessageSend } from '../../../../models/message.model';
 import { ChatService } from '../../../../services/chat.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MessageService } from '../../../../services/message.service';
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss'],
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, OnChanges {
   @Input() chat: Chat;
   form: FormGroup;
 
-  messages$: Observable<Message[]>;
+  messages: Message[] = [];
 
-  constructor(private chatService: ChatService, private fb: FormBuilder) {}
+  constructor(
+    private chatService: ChatService,
+    private messageService: MessageService,
+    private fb: FormBuilder,
+  ) {}
 
   ngOnInit(): void {
     this.buildForm();
-    this.messages$ = this.chatService.getChatMessages(this.chat.id);
+    this.chatService.getChatMessages(this.chat.id).subscribe((m) => (this.messages = m));
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.ngOnInit();
+  }
+
+  addFile() {}
+
+  send(form) {
+    const message: MessageSend = {
+      chatId: this.chat.id,
+      content: form.message,
+    } as MessageSend;
+
+    this.messageService.sendMessage(message).subscribe((m) => console.log('message send = ', m));
+    this.form.get('message').setValue('');
   }
 
   private buildForm() {

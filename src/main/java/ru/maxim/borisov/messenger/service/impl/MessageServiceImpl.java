@@ -2,6 +2,7 @@ package ru.maxim.borisov.messenger.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.maxim.borisov.messenger.dto.create.MessageCreateDto;
 import ru.maxim.borisov.messenger.dto.get.MessageGetDto;
 import ru.maxim.borisov.messenger.mapper.MessageMapper;
 import ru.maxim.borisov.messenger.repository.MessageRepository;
@@ -31,4 +32,12 @@ public class MessageServiceImpl implements MessageService {
     public List<MessageGetDto> getAllMessages(Long chatId) {
         return messageMapper.toGetDto(messageRepository.findAllByChatId(chatId));
     }
+
+    @Override
+    public MessageGetDto sendMessage(MessageCreateDto message) {
+        final var entity = messageMapper.fromCreateDto(message);
+        final var saved = messageRepository.save(entity);
+        return messageMapper.toGetDto(saved);
+    }
+
 }
