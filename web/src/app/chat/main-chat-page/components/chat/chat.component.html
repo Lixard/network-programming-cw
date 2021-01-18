@@ -1,6 +1,6 @@
 <div class="main-chat-field">
   <div class="messages">
-    <mat-card *ngFor="let message of messages">
+    <mat-card *ngFor="let message of messages" class="{{getCssStyleForMessage(message)}}">
       <mat-card-title>{{ message.sender.username }}</mat-card-title>
       <mat-card-subtitle>{{ getSendDate(message.sendDate) }}</mat-card-subtitle>
       <mat-card-content>

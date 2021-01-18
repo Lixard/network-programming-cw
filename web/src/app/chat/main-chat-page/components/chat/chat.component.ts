@@ -5,6 +5,8 @@ import { ChatService } from '../../../../services/chat.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from '../../../../services/message.service';
 import * as moment from 'moment';
+import { AuthService } from '../../../../services/auth.service';
+import { CurrentUser } from '../../../../models/user.model';
 
 @Component({
   selector: 'app-chat',
@@ -15,17 +17,21 @@ export class ChatComponent implements OnInit, OnChanges {
   @Input() chat: Chat;
   form: FormGroup;
 
+  currentUser: CurrentUser;
+
   messages: Message[] = [];
 
   constructor(
     private chatService: ChatService,
     private messageService: MessageService,
     private fb: FormBuilder,
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
     this.buildForm();
     this.chatService.getChatMessages(this.chat.id).subscribe((m) => (this.messages = m));
+    this.authService.user$.subscribe((u) => (this.currentUser = u));
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -54,5 +60,9 @@ export class ChatComponent implements OnInit, OnChanges {
     this.form = this.fb.group({
       message: this.fb.control('', Validators.required),
     });
+  }
+
+  getCssStyleForMessage(message: Message): string {
+    return this.currentUser.id === message.sender.id ? 'my-message' : '';
   }
 }
