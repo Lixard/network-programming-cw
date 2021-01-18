@@ -14,9 +14,8 @@ export class ChatNavElementComponent implements OnInit {
   constructor(private chatService: ChatService) {}
 
   ngOnInit(): void {
-    this.chatService.getCountUnreadMessagesByChatId(this.chat.id).subscribe((n) => {
-      console.log('unreadMessages = ', n);
-      this.unreadMessages = n;
-    });
+    this.chatService
+      .getCountUnreadMessagesByChatId(this.chat.id)
+      .subscribe((n) => (this.unreadMessages = n));
   }
 }

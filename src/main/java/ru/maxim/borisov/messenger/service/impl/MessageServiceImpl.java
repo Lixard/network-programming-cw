@@ -59,4 +59,12 @@ public class MessageServiceImpl implements MessageService {
         return messageMapper.toGetDto(saved);
     }
 
+    @Override
+    public void markChatMessagesAsRead(Long chatId, Long userId) {
+        final var unreadMessages =
+                messageStatusRepository.getAllByMessageChatIdAndUserIdAndIsReadIsFalse(chatId, userId);
+        unreadMessages.forEach(message -> message.setRead(true));
+        messageStatusRepository.saveAll(unreadMessages);
+    }
+
 }

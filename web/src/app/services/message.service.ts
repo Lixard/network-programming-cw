@@ -12,4 +12,8 @@ export class MessageService {
   public sendMessage(message: MessageSend): Observable<Message> {
     return this.http.post<Message>(`/api/messages`, message);
   }
+
+  public markChatMessagesAsRead(chatId: number): Observable<void> {
+    return this.http.post<void>(`/api/chats/${chatId}/mark-as-read`, null);
+  }
 }

@@ -11,4 +11,6 @@ public interface MessageService {
     List<MessageGetDto> getAllMessages(Long chatId);
 
     MessageGetDto sendMessage(MessageCreateDto message);
+
+    void markChatMessagesAsRead(Long chatId, Long userId);
 }

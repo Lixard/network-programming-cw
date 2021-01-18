@@ -65,4 +65,9 @@ public class ChatController {
     public List<MessageGetDto> getAllMessages(@PathVariable Long chatId) {
         return messageService.getAllMessages(chatId);
     }
+
+    @PostMapping("/{chatId}/mark-as-read")
+    public void markChatMessagesAsRead(@PathVariable Long chatId) {
+        messageService.markChatMessagesAsRead(chatId, currentUser.getId());
+    }
 }
