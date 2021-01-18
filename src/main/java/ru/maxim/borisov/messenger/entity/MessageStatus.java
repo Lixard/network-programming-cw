@@ -18,12 +18,12 @@ public class MessageStatus {
     private MessageUserKey id;
 
     @ManyToOne
-    @MapsId("messageId")
+    @MapsId("message_id")
     @JoinColumn(name = "message_id", nullable = false)
     private Message message;
 
     @ManyToOne
-    @MapsId("userId")
+    @MapsId("user_id")
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 

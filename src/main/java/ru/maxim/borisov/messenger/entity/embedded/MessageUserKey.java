@@ -14,6 +14,14 @@ public class MessageUserKey implements Serializable {
     @Column(name = "user_id")
     private Long userId;
 
+    public MessageUserKey() {
+    }
+
+    public MessageUserKey(Long messageId, Long userId) {
+        this.messageId = messageId;
+        this.userId = userId;
+    }
+
     public Long getMessageId() {
         return messageId;
     }

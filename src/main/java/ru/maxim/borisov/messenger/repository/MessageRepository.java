@@ -7,8 +7,5 @@ import java.util.List;
 
 
 public interface MessageRepository extends JpaRepository<Message, Long> {
-
-    Long countByChatIdAndUserIdAndMessageStatusesIsReadFalse(Long chatId, Long userId);
-
     List<Message> findAllByChatId(Long chatId);
 }
