@@ -2,7 +2,7 @@
   <div class="messages">
     <mat-card *ngFor="let message of messages">
       <mat-card-title>{{ message.sender.username }}</mat-card-title>
-      <mat-card-subtitle>{{ message.sendDate }}</mat-card-subtitle>
+      <mat-card-subtitle>{{ getSendDate(message.sendDate) }}</mat-card-subtitle>
       <mat-card-content>
         <p>{{ message.content }}</p>
       </mat-card-content>

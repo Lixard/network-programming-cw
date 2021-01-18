@@ -4,6 +4,7 @@ import { Message, MessageSend } from '../../../../models/message.model';
 import { ChatService } from '../../../../services/chat.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from '../../../../services/message.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-chat',
@@ -41,6 +42,12 @@ export class ChatComponent implements OnInit, OnChanges {
 
     this.messageService.sendMessage(message).subscribe((m) => console.log('message send = ', m));
     this.form.get('message').setValue('');
+  }
+
+  getSendDate(date: string): string {
+    let momentDate = moment.utc(date);
+    momentDate.locale('ru');
+    return momentDate.format('llll');
   }
 
   private buildForm() {
