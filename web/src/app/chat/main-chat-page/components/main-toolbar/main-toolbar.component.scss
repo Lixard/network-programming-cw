@@ -1,5 +1,27 @@
 mat-toolbar {
   display: flex;
   justify-content: space-between;
-  flex-direction: row-reverse;
+  flex-direction: row;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.person-count {
+  font-size: 8pt;
+  line-height: 8pt;
+}
+
+.chat-name {
+  font-size: 14pt;
+  line-height: 14pt;
 }

@@ -13,4 +13,6 @@ public interface ChatService {
     ChatGetDto create(ChatCreateDto chatCreateDto);
 
     ChatGetDto update(ChatUpdateDto chatUpdateDto);
+
+    void delete(Long chatId);
 }

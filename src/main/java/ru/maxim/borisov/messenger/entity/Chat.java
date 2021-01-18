@@ -1,5 +1,6 @@
 package ru.maxim.borisov.messenger.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,7 +40,7 @@ public class Chat {
     private List<User> users;
 
     @OrderBy("sendDate DESC")
-    @OneToMany(mappedBy = "chat")
+    @OneToMany(mappedBy = "chat", cascade = CascadeType.REMOVE)
     private List<Message> messages;
 
     public Long getId() {

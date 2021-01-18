@@ -25,4 +25,8 @@ export class ChatService {
   public getChatMessages(chatId: number): Observable<Message[]> {
     return this.http.get<Message[]>(`/api/chats/${chatId}/messages`);
   }
+
+  public removeChat(chatId: number): Observable<void> {
+    return this.http.delete<void>(`/api/chats/${chatId}`);
+  }
 }

@@ -1,4 +1,21 @@
 <mat-toolbar color="primary">
+  <div>Chat logo</div>
+  <div *ngIf="chat" class="flex-row">
+    <div class="flex-column">
+      <span>{{ chat.name }}</span>
+      <small class="person-count">
+        <mat-icon [inline]="true">person</mat-icon>
+        {{ chat.participations.length }}
+      </small>
+    </div>
+    <button [mat-menu-trigger-for]="chatMenu" mat-icon-button>
+      <mat-icon>keyboard_arrow_down</mat-icon>
+    </button>
+    <mat-menu #chatMenu>
+      <button mat-menu-item>Изменить чат</button>
+      <button (click)="deleteChat()" mat-menu-item>Удалить чат</button>
+    </mat-menu>
+  </div>
   <div>
     <button [mat-menu-trigger-for]="menu" mat-button>
       {{ (auth.user$ | async)?.username }}

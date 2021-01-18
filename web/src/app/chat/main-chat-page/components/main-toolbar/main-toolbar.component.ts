@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from '../../../../services/auth.service';
 import { switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { Chat } from '../../../../models/chat.model';
+import { ChatService } from '../../../../services/chat.service';
 
 @Component({
   selector: 'app-main-toolbar',
@@ -9,7 +11,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./main-toolbar.component.scss'],
 })
 export class MainToolbarComponent implements OnInit {
-  constructor(public auth: AuthService, private router: Router) {}
+  @Input() chat: Chat;
+
+  constructor(public auth: AuthService, private chatService: ChatService, private router: Router) {}
 
   ngOnInit(): void {}
 
@@ -22,5 +26,9 @@ export class MainToolbarComponent implements OnInit {
         this.auth.user$.next(user);
         this.router.navigateByUrl('/login');
       });
+  }
+
+  deleteChat() {
+    this.chatService.removeChat(this.chat.id).subscribe(() => (this.chat = null));
   }
 }

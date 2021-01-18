@@ -51,6 +51,11 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
+    public void delete(Long chatId) {
+        chatRepository.deleteById(chatId);
+    }
+
+    @Override
     public List<ChatGetDto> getCurrentUserChats(Long userId) {
         final var chats = chatRepository.findByUsersId(userId);
         return chatMapper.toGetDto(chats);
