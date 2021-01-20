@@ -2,6 +2,7 @@ package ru.maxim.borisov.messenger.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,14 +31,17 @@ public class ChatController {
     private final ChatService chatService;
     private final MessageService messageService;
     private final CurrentUser currentUser;
+    private final SimpMessagingTemplate simpMessagingTemplate;
 
     @Autowired
     public ChatController(ChatService chatService,
                           MessageService messageService,
-                          CurrentUser currentUser) {
+                          CurrentUser currentUser,
+                          SimpMessagingTemplate simpMessagingTemplate) {
         this.chatService = chatService;
         this.messageService = messageService;
         this.currentUser = currentUser;
+        this.simpMessagingTemplate = simpMessagingTemplate;
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

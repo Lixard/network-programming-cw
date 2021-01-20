@@ -13,6 +13,7 @@
           (click)="selectChat(chat)"
           *ngFor="let chat of chatListElements"
           [chat]="chat"
+          [mainPageEvent]="chatNavEvent.asObservable()"
         ></app-chat-nav-element>
       </mat-nav-list>
     </mat-sidenav>

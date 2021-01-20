@@ -7,6 +7,7 @@ import { MessageService } from '../../../../services/message.service';
 import * as moment from 'moment';
 import { AuthService } from '../../../../services/auth.service';
 import { CurrentUser } from '../../../../models/user.model';
+import { SocketClientService } from '../../../../services/socket-client.service';
 
 @Component({
   selector: 'app-chat',
@@ -26,12 +27,16 @@ export class ChatComponent implements OnInit, OnChanges {
     private messageService: MessageService,
     private fb: FormBuilder,
     private authService: AuthService,
+    private socketClient: SocketClientService,
   ) {}
 
   ngOnInit(): void {
     this.buildForm();
     this.chatService.getChatMessages(this.chat.id).subscribe((m) => (this.messages = m));
     this.authService.user$.subscribe((u) => (this.currentUser = u));
+    this.socketClient.onMessage(`/ws/chats/${this.chat.id}`).subscribe((message: Message) => {
+      this.messages.push(message);
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -46,7 +51,7 @@ export class ChatComponent implements OnInit, OnChanges {
       content: form.message,
     } as MessageSend;
 
-    this.messageService.sendMessage(message).subscribe((m) => console.log('message send = ', m));
+    this.socketClient.send('/ws/messages', message);
     this.form.get('message').setValue('');
   }
 

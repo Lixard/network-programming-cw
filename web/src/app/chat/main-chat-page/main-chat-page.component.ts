@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatService } from '../../services/chat.service';
 import { Chat } from '../../models/chat.model';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { ChatCreateDialogComponent } from './components/_dialogs/chat-create-dialog/chat-create-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MessageService } from '../../services/message.service';
@@ -14,6 +14,8 @@ import { MessageService } from '../../services/message.service';
 export class MainChatPageComponent implements OnInit {
   chatListElements: Chat[];
   selectedChat: Chat;
+
+  chatNavEvent: Subject<void> = new Subject<void>();
 
   constructor(
     private chatService: ChatService,
@@ -42,6 +44,8 @@ export class MainChatPageComponent implements OnInit {
   selectChat(chat: Chat) {
     this.selectedChat = chat;
     console.log(this.selectedChat);
-    this.messageService.markChatMessagesAsRead(chat.id).subscribe();
+    this.messageService.markChatMessagesAsRead(chat.id).subscribe(() => {
+      this.chatNavEvent.next();
+    });
   }
 }
