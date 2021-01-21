@@ -1,4 +1,4 @@
-package ru.maxim.borisov.messenger.security;
+package ru.maxim.borisov.messenger.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
