@@ -13,6 +13,9 @@ import javax.persistence.Table;
 import java.time.Instant;
 import java.util.List;
 
+/**
+ * Сущность базы данных, представляющая собой элемент таблицы сообщений.
+ */
 @Entity
 @Table(name = "messages")
 public class Message {

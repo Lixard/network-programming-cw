@@ -5,6 +5,9 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * Сущность, представляющая собой составной ключ для таблицы статусов сообщений.
+ */
 @Embeddable
 public class MessageUserKey implements Serializable {
 

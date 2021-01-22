@@ -1,5 +1,9 @@
 package ru.maxim.borisov.messenger.dto.get;
 
+/**
+ * Dto для получения информации о загруженной аватарке профиля. Используется как подтверждения обновления аватарки, и
+ * показывается когда мы регистрируем новую аватарку пользователю.
+ */
 public class ProfilePictureGetDto {
 
     private Long id;

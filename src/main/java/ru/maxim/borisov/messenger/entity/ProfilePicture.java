@@ -13,6 +13,9 @@ import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+/**
+ * Сущность базы данных, представляющая собой элемент таблицы аватарок пользователей.
+ */
 @Entity
 @Table(name = "profile_pictures")
 public class ProfilePicture {

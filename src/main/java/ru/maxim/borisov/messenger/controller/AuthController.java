@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.maxim.borisov.messenger.security.model.CurrentUser;
 import ru.maxim.borisov.messenger.security.model.LoginSuccessModel;
 
+/**
+ * Контроллер для реализации методов авторизации Spring Security.
+ */
 @RestController
 @RequestMapping(
         path = "/auth",
@@ -22,6 +25,12 @@ public class AuthController {
         this.currentUser = currentUser;
     }
 
+    /**
+     * Позволяет получить текущего юзера (если он сейчас залогинен) либо получить {authenticated: false} если никого
+     * нет.
+     *
+     * @return Модель с информацией о текущем пользователе
+     */
     @GetMapping(path = "/this")
     public LoginSuccessModel getCurrentUser() {
         return new LoginSuccessModel(currentUser);

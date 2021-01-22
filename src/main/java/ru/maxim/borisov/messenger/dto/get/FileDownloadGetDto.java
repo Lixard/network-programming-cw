@@ -2,6 +2,9 @@ package ru.maxim.borisov.messenger.dto.get;
 
 import java.util.Arrays;
 
+/**
+ * Dto для получения файла вместе с данными о нем.
+ */
 public class FileDownloadGetDto {
     private Long id;
     private String name;

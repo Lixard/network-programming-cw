@@ -11,6 +11,9 @@ import ru.maxim.borisov.messenger.service.UserService;
 
 import java.util.List;
 
+/**
+ * {@inheritDoc}
+ */
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -27,6 +30,9 @@ public class UserServiceImpl implements UserService {
         this.encoderService = encoderService;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public UserGetDto create(UserCreateDto userCreateDto) {
         final var user = userMapper.fromCreateDto(userCreateDto);
@@ -35,6 +41,9 @@ public class UserServiceImpl implements UserService {
         return userMapper.toGetDto(userWithEncodedPass);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<UserGetDto> getAll() {
         return userMapper.toGetDto(userRepository.findAll());

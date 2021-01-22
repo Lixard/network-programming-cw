@@ -1,5 +1,8 @@
 package ru.maxim.borisov.messenger.security.model;
 
+/**
+ * Модель, представляющая собой ответ сервера на успешную авторизацию.
+ */
 public class LoginSuccessModel implements CurrentUser {
 
     private long id;

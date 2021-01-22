@@ -2,6 +2,9 @@ package ru.maxim.borisov.messenger.dto.get;
 
 import java.time.Instant;
 
+/**
+ * Dto для получения сообщения.
+ */
 public class MessageGetDto {
 
     private Long id;

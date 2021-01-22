@@ -1,5 +1,9 @@
 package ru.maxim.borisov.messenger.dto.get;
 
+/**
+ * Dto для получения данных о пользователе. Используется чтобы спрятать пароль и прочую чувствительную инфромацию,
+ * которую не обязательно знать всему приложению.
+ */
 public class UserGetDto {
 
     private Long id;

@@ -13,6 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.util.Arrays;
 
+/**
+ * Сущность базы данных, представляющая собой элемент таблицы файлов сообщений.
+ */
 @Entity
 @Table(name = "message_files")
 public class MessageFile {

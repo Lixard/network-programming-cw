@@ -2,6 +2,9 @@ package ru.maxim.borisov.messenger.dto.create;
 
 import java.util.List;
 
+/**
+ * Dto для создания чата.
+ */
 public class ChatCreateDto {
     private String name;
     private Long createdBy;

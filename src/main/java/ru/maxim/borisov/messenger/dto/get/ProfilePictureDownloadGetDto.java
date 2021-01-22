@@ -2,6 +2,9 @@ package ru.maxim.borisov.messenger.dto.get;
 
 import java.util.Arrays;
 
+/**
+ * Dto для получения аватрки профиля.
+ */
 public class ProfilePictureDownloadGetDto {
     private Long id;
     private String name;

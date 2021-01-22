@@ -15,6 +15,9 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import java.util.List;
 
+/**
+ * Сущность базы данных, представляющая собой элемент таблицы чата.
+ */
 @Entity
 @Table(name = "chats")
 public class Chat {

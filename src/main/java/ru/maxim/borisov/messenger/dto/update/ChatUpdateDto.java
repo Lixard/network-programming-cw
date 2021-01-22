@@ -2,6 +2,9 @@ package ru.maxim.borisov.messenger.dto.update;
 
 import java.util.List;
 
+/**
+ * Dto для обновления чата.
+ */
 public class ChatUpdateDto {
 
     private Long id;

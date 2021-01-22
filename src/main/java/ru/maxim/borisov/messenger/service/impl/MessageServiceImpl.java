@@ -14,6 +14,9 @@ import ru.maxim.borisov.messenger.service.MessageService;
 
 import java.util.List;
 
+/**
+ * {@inheritDoc}
+ */
 @Service
 public class MessageServiceImpl implements MessageService {
 
@@ -33,16 +36,25 @@ public class MessageServiceImpl implements MessageService {
         this.userRepository = userRepository;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Long getChatUnreadMessagesCountByCurrentUser(Long chatId, Long userId) {
         return messageStatusRepository.countAllByMessageChatIdAndUserIdAndIsReadIsFalse(chatId, userId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<MessageGetDto> getAllMessages(Long chatId) {
         return messageMapper.toGetDto(messageRepository.findAllByChatId(chatId));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public MessageGetDto sendMessage(MessageCreateDto message) {
         final var entity = messageMapper.fromCreateDto(message);
@@ -61,6 +73,9 @@ public class MessageServiceImpl implements MessageService {
         return messageMapper.toGetDto(saved);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void markChatMessagesAsRead(Long chatId, Long userId) {
         final var unreadMessages =

@@ -14,6 +14,9 @@ import ru.maxim.borisov.messenger.service.ChatService;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * {@inheritDoc}
+ */
 @Service
 public class ChatServiceImpl implements ChatService {
 
@@ -30,6 +33,9 @@ public class ChatServiceImpl implements ChatService {
         this.chatMapper = chatMapper;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ChatGetDto create(ChatCreateDto chatCreateDto) {
         final var chat = chatMapper.fromCreateDto(chatCreateDto);
@@ -41,6 +47,9 @@ public class ChatServiceImpl implements ChatService {
         return chatMapper.toGetDto(saved);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ChatGetDto update(ChatUpdateDto chatUpdateDto) {
         final var chat = chatRepository.findById(chatUpdateDto.getId()).orElseThrow();
@@ -50,17 +59,29 @@ public class ChatServiceImpl implements ChatService {
         return chatMapper.toGetDto(saved);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void delete(Long chatId) {
         chatRepository.deleteById(chatId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ChatGetDto> getCurrentUserChats(Long userId) {
         final var chats = chatRepository.findByUsersId(userId);
         return chatMapper.toGetDto(chats);
     }
 
+    /**
+     * Метод для преобразования списка пользовательских идентификаторов в самих пользователей.
+     *
+     * @param userIds список идентификаторов пользователей
+     * @return список пользователей
+     */
     private List<User> formUsersFromIds(List<Long> userIds) {
         return userIds.stream().map(id -> {
             final var user = userRepository.findById(id).orElseThrow(NullPointerException::new);

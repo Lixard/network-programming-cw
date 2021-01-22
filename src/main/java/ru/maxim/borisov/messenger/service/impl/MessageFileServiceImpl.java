@@ -12,6 +12,9 @@ import ru.maxim.borisov.messenger.service.MessageFileService;
 
 import java.util.List;
 
+/**
+ * {@inheritDoc}
+ */
 @Service
 public class MessageFileServiceImpl implements MessageFileService {
 
@@ -28,18 +31,27 @@ public class MessageFileServiceImpl implements MessageFileService {
         this.messageFileMapper = messageFileMapper;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<FileGetDto> getAllMessageFiles(Long messageId) {
         final var message = messageRepository.findById(messageId).orElseThrow();
         return messageFileMapper.toGetDto(message.getMessageFiles());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public FileDownloadGetDto downloadMessageFile(Long fileId) {
         final var file = messageFileRepository.findById(fileId).orElseThrow();
         return messageFileMapper.toDownloadGetDto(file);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public FileGetDto saveMessageFile(Long messageId, MultipartFile file) {
         final var messageFile = messageFileMapper.toEntity(messageId, file);

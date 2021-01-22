@@ -1,5 +1,10 @@
 package ru.maxim.borisov.messenger.dto.get;
 
+/**
+ * Dto для получения информации о файле. Обычно используется для получения списка файлов.
+ * Передача файлов сама по себе крайне дорогая процедура, поэтому это позволяет нам сократить расходы на передачу
+ * файлов.
+ */
 public class FileGetDto {
     private Long id;
     private Long messageId;

@@ -5,6 +5,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.maxim.borisov.messenger.security.service.PasswordEncoderService;
 
+/**
+ * {@inheritDoc}
+ */
 @Service
 public class PasswordEncoderServiceImpl implements PasswordEncoderService {
 
@@ -15,11 +18,17 @@ public class PasswordEncoderServiceImpl implements PasswordEncoderService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String encode(String password) {
         return passwordEncoder.encode(password);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean matches(CharSequence raw, String encoded) {
         return passwordEncoder.matches(raw, encoded);

@@ -1,5 +1,8 @@
 package ru.maxim.borisov.messenger.dto.create;
 
+/**
+ * Dto для создания сообщения.
+ */
 public class MessageCreateDto {
 
     private Long chatId;

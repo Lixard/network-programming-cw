@@ -11,6 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Обработчик ситуации успешной аунтификации. Так как у нас rest-api(по большей части), то всю информацию мы хотим
+ * получать в виде json-объектов. С помощью этого обработчика мы заменяем дефолтный спринговский обработчик (который
+ * если я не ошибаюсь возвращает html страницу в случае успешного логина) своим который будет отдавать нам
+ * JSON-объект только что залогиненного пользователя с полем {authenticated: true}
+ */
 public class AppLoginSuccessHandler implements AuthenticationSuccessHandler {
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();

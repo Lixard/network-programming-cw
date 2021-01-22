@@ -23,6 +23,9 @@ import ru.maxim.borisov.messenger.service.MessageService;
 import java.util.List;
 
 
+/**
+ * Контроллер для взаимодействия с сообщениями.
+ */
 @RestController
 @RequestMapping(
         value = "/messages",
@@ -46,6 +49,13 @@ public class MessageController {
         this.messageFileService = messageFileService;
     }
 
+    /**
+     * Регистрация нового сообщения в системе. При получении нового сообщения отправляет только что полученное
+     * сообщение через websocket всем активным пользователям чата, чтобы поддерживать live статус.
+     *
+     * @param message сообщение
+     * @return зарегистрированное в системе сообщение
+     */
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public MessageGetDto processMessages(@RequestBody MessageCreateDto message) {
         message.setSenderId(currentUser.getId());
@@ -54,6 +64,13 @@ public class MessageController {
         return messageGetDto;
     }
 
+    /**
+     * Загрузка файла сообщения в систему.
+     *
+     * @param messageId идентификатор сообщения
+     * @param file      файл
+     * @return зарегистрированный в системе файл
+     */
     @PostMapping(
             path = "/{messageId}/files",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE
@@ -62,11 +79,25 @@ public class MessageController {
         return messageFileService.saveMessageFile(messageId, file);
     }
 
+    /**
+     * Получение мета-данных о всех файлах определенного сообщения.
+     *
+     * @param messageId идентификатор сообщения.
+     * @return список мета-данных о файлах
+     */
     @GetMapping(path = "/{messageId}/files")
     public List<FileGetDto> getAllMessageFiles(@PathVariable Long messageId) {
         return messageFileService.getAllMessageFiles(messageId);
     }
 
+    /**
+     * Загрузка файла из системы.
+     *
+     * @param messageId идентификатор сообщения (в прекрасном будущем должен использоваться для валидации и проверки
+     *                  на права доступа)
+     * @param fileId    идентификатор файла
+     * @return массив байт, представляющих собой сам файл
+     */
     @GetMapping(path = "/{messageId}/files/{fileId}")
     public ResponseEntity<byte[]> downloadMessageFile(@PathVariable Long messageId, @PathVariable Long fileId) {
         final var file = messageFileService.downloadMessageFile(fileId);

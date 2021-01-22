@@ -17,6 +17,9 @@ import ru.maxim.borisov.messenger.security.handler.AppEntryPointHandler;
 import ru.maxim.borisov.messenger.security.handler.AppLoginSuccessHandler;
 import ru.maxim.borisov.messenger.security.handler.AppLogoutSuccessHandler;
 
+/**
+ * Основной конфигурационный класс для настройки всего Spring Security.
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -28,6 +31,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.userDetailsService = userDetailsService;
     }
 
+    /**
+     * Метод для настройки провайдера авторизации. Позволяет зарегистрировать шифровальщик пароля и сервис для
+     * получения текущего пользователя.
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
         final var daoAuthenticationProvider = new DaoAuthenticationProvider();
@@ -41,6 +48,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return userDetailsService;
     }
 
+    /**
+     * Метод, в котором описывается вся конфигураци Spring Security текущего проекта. Здесь видно на какие точки
+     * доступа может ходить любой пользователь, на какие только авторизованный, определяется способ авторизации,
+     * устанавливаются обработчики событий успешного логина и логаута, реализуются настройки сессий.
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
@@ -66,6 +78,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .changeSessionId();
     }
 
+    /**
+     * Бин для регистрации шифровальщика пароля.
+     *
+     * @return шифровальщик пароля
+     */
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

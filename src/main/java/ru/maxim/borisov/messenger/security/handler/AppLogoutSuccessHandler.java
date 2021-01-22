@@ -6,6 +6,10 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Обработчик ситуации успешного выхода пользователя из системы. Заменяем дефолтный спринговский на самописный и
+ * рест-апишный по аналогии с другими.
+ */
 public class AppLogoutSuccessHandler implements LogoutSuccessHandler {
 
     @Override

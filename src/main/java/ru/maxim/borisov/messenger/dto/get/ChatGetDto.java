@@ -2,6 +2,9 @@ package ru.maxim.borisov.messenger.dto.get;
 
 import java.util.List;
 
+/**
+ * Dto для получения чата со списком его участников.
+ */
 public class ChatGetDto {
 
     private Long id;

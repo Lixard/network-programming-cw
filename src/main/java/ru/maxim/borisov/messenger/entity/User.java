@@ -13,6 +13,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.List;
 
+/**
+ * Сущность базы данных, представляющая собой элемент таблицы пользователей.
+ */
 @Entity
 @Table(name = "users")
 public class User {

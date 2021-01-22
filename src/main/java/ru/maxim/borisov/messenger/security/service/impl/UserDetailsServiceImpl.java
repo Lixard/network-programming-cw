@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import ru.maxim.borisov.messenger.repository.UserRepository;
 import ru.maxim.borisov.messenger.security.model.UserDetailsImpl;
 
+/**
+ * Имплементация сервиса создания UserDetails бина.
+ */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
@@ -18,6 +21,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
+    /**
+     * Метод, позволяющий создавать UserDetails при поиске по имени пользователя. ВАЖНО чтобы в системе имя
+     * пользователя было уникальным.
+     *
+     * @param username УНИКАЛЬНОЕ имя пользователя
+     * @return UserDetails bean
+     */
     @Override
     public UserDetails loadUserByUsername(String username) {
         return new UserDetailsImpl(userRepository.findOneByUsername(username)

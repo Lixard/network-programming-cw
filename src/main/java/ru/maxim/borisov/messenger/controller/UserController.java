@@ -20,7 +20,9 @@ import ru.maxim.borisov.messenger.service.UserService;
 
 import java.util.List;
 
-
+/**
+ * Контроллер для взаимодействия с пользователями.
+ */
 @RestController
 @RequestMapping(
         path = "/users",
@@ -38,6 +40,12 @@ public class UserController {
         this.profilePictureService = profilePictureService;
     }
 
+    /**
+     * Регистрация нового пользователя в системе.
+     *
+     * @param user данные пользователя
+     * @return зарегистрированный в системе пользователь
+     */
     @PostMapping(
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
@@ -45,11 +53,23 @@ public class UserController {
         return userService.create(user);
     }
 
+    /**
+     * Получение всех пользователей системы.
+     *
+     * @return список пользователей
+     */
     @GetMapping
     public List<UserGetDto> getAll() {
         return userService.getAll();
     }
 
+    /**
+     * Энд-поинт для обновления аватарки пользователя.
+     *
+     * @param userId идентификатор пользователя
+     * @param file   новая аватарка (файл)
+     * @return мета-данные о зарегистрированной в системе аватарке
+     */
     @PutMapping(
             path = "/{userId}/avatar",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE
@@ -58,6 +78,13 @@ public class UserController {
         return profilePictureService.setPictureToUserProfile(userId, file);
     }
 
+    /**
+     * Энд-поинт для получения аватарки пользователя. Так как аватарка не является обязательной, то если аватарки
+     * нет, то api без ошибок вернет ничего.
+     *
+     * @param userId идентификатор пользователя
+     * @return картинка (или массив байтов, зависит от уровня абстракции)
+     */
     @GetMapping(path = "/{userId}/avatar")
     public ResponseEntity<byte[]> getProfilePicture(@PathVariable Long userId) {
         final var picture = profilePictureService.downloadProfilePicture(userId);

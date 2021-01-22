@@ -10,6 +10,9 @@ import ru.maxim.borisov.messenger.repository.ProfilePictureRepository;
 import ru.maxim.borisov.messenger.repository.UserRepository;
 import ru.maxim.borisov.messenger.service.ProfilePictureService;
 
+/**
+ * {@inheritDoc}
+ */
 @Service
 public class ProfilePictureServiceImpl implements ProfilePictureService {
 
@@ -26,6 +29,9 @@ public class ProfilePictureServiceImpl implements ProfilePictureService {
         this.profilePictureMapper = profilePictureMapper;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ProfilePictureGetDto setPictureToUserProfile(Long userId, MultipartFile file) {
         final var user = userRepository.findById(userId).orElseThrow();
@@ -36,6 +42,9 @@ public class ProfilePictureServiceImpl implements ProfilePictureService {
         return profilePictureMapper.toGetDto(savedPicture);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ProfilePictureDownloadGetDto downloadProfilePicture(Long userId) {
         final var user = userRepository.findById(userId).orElseThrow();

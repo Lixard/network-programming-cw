@@ -7,6 +7,10 @@ import ru.maxim.borisov.messenger.entity.User;
 import java.util.Collection;
 import java.util.Collections;
 
+/**
+ * Представляет собой необходимую информацию для построения объектов Spring Security. Имеет множество крутых
+ * инструментов для реализации ролей и прав доступа, но на всё не хватит времени.
+ */
 public class UserDetailsImpl implements UserDetails, CurrentUser {
 
     private final transient User user;

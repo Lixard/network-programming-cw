@@ -1,5 +1,8 @@
 package ru.maxim.borisov.messenger.dto.create;
 
+/**
+ * Dto для создания пользователя.
+ */
 public class UserCreateDto {
 
     private String username;

@@ -9,6 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+
+/**
+ * Обработчик для замены дефолтных спринговских. Так как у нас рест-апи, то и все служебные ответы об авторизации мы
+ * хотим получать в виде JSON объектов. Этим хендлером мы и реализуем подобное поведение.
+ */
 public class AppEntryPointHandler implements AuthenticationEntryPoint {
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();

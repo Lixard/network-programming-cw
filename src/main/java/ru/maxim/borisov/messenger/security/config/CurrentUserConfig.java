@@ -8,6 +8,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.context.WebApplicationContext;
 import ru.maxim.borisov.messenger.security.model.CurrentUser;
 
+/**
+ * Конфигурация в которой создается бин(объект) текущего авторизованного пользователя  в системе.
+ * Является проксируемым, что означает, что новый объект создается на каждый запрос к нашему api. Это гарантирует нам
+ * то, что при каждом вызове текущего пользователя у нас будет появляться именно тот пользователь, который делал запрос.
+ */
 @Configuration
 public class CurrentUserConfig {
 
