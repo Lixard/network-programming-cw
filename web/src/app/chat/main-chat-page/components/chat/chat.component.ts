@@ -8,6 +8,7 @@ import * as moment from 'moment';
 import { AuthService } from '../../../../services/auth.service';
 import { CurrentUser } from '../../../../models/user.model';
 import { SocketClientService } from '../../../../services/socket-client.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-chat',
@@ -19,8 +20,9 @@ export class ChatComponent implements OnInit, OnChanges {
   form: FormGroup;
 
   currentUser: CurrentUser;
-
   messages: Message[] = [];
+
+  wsSub: Subscription;
 
   constructor(
     private chatService: ChatService,
@@ -28,24 +30,29 @@ export class ChatComponent implements OnInit, OnChanges {
     private fb: FormBuilder,
     private authService: AuthService,
     private socketClient: SocketClientService,
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.buildForm();
     this.chatService.getChatMessages(this.chat.id).subscribe((m) => (this.messages = m));
     this.authService.user$.subscribe((u) => (this.currentUser = u));
-    this.socketClient.onMessage(`/topic/chats/${this.chat.id}`).subscribe((message: Message) => {
-      console.log(message);
-      this.messages.push(message);
-    });
+    this.wsSub = this.socketClient.onMessage(`/topic/chats/${this.chat.id}`)
+      .subscribe((message: Message) => {
+        console.log(message);
+        this.messages.push(message);
+      });
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.buildForm();
-    this.chatService.getChatMessages(this.chat.id).subscribe((m) => (this.messages = m));
+    if (this.wsSub) {
+      this.wsSub.unsubscribe();
+      this.ngOnInit();
+    }
   }
 
-  addFile() {}
+  addFile() {
+  }
 
   send(form) {
     const message: MessageSend = {
@@ -61,16 +68,16 @@ export class ChatComponent implements OnInit, OnChanges {
   getSendDate(date: string): string {
     let momentDate = moment.utc(date);
     momentDate.locale('ru');
-    return momentDate.format('llll');
+    return momentDate.utcOffset('+03:00').format('llll');
+  }
+
+  getCssStyleForMessage(message: Message): string {
+    return this.currentUser.id === message.sender.id ? 'my-message' : '';
   }
 
   private buildForm() {
     this.form = this.fb.group({
       message: this.fb.control('', Validators.required),
     });
-  }
-
-  getCssStyleForMessage(message: Message): string {
-    return this.currentUser.id === message.sender.id ? 'my-message' : '';
   }
 }
