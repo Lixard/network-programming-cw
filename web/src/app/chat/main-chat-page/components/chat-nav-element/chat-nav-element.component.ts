@@ -28,7 +28,7 @@ export class ChatNavElementComponent implements OnInit {
     this.chatService
       .getCountUnreadMessagesByChatId(this.chat.id)
       .subscribe((n) => (this.unreadMessages = n));
-    this.socketClient.onMessage(`/ws/chats/${this.chat.id}`).subscribe((message: Message) => {
+    this.socketClient.onMessage(`/topic/chats/${this.chat.id}`).subscribe((message: Message) => {
       this.authService.user$.subscribe((currentUser) => {
         if (currentUser.id !== message.sender.id) {
           this.unreadMessages++;
