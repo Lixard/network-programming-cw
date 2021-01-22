@@ -1,12 +1,15 @@
 package ru.maxim.borisov.messenger.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.List;
 
@@ -18,6 +21,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
+
+    @OneToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "picture_id")
+    private ProfilePicture profilePicture;
 
     @Column(name = "username", nullable = false, unique = true, length = 60)
     private String username;
@@ -61,5 +68,13 @@ public class User {
 
     public void setMessageStatuses(List<MessageStatus> messageStatuses) {
         this.messageStatuses = messageStatuses;
+    }
+
+    public ProfilePicture getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(ProfilePicture profilePicture) {
+        this.profilePicture = profilePicture;
     }
 }

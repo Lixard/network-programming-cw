@@ -13,6 +13,7 @@ public interface UserMapper {
 
     UserGetDto toGetDto(User user);
 
+    @Mapping(target = "profilePicture", ignore = true)
     @Mapping(target = "messageStatuses", ignore = true)
     @Mapping(target = "id", ignore = true)
     User fromCreateDto(UserCreateDto userCreateDto);

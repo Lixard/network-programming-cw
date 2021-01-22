@@ -30,6 +30,9 @@ public class Message {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @OneToMany(mappedBy = "message", cascade = CascadeType.REMOVE)
+    private List<MessageFile> messageFiles;
+
     @Column(name = "content", columnDefinition = "TEXT", nullable = false)
     private String content;
 
@@ -85,5 +88,13 @@ public class Message {
 
     public void setMessageStatuses(List<MessageStatus> messageStatuses) {
         this.messageStatuses = messageStatuses;
+    }
+
+    public List<MessageFile> getMessageFiles() {
+        return messageFiles;
+    }
+
+    public void setMessageFiles(List<MessageFile> messageFiles) {
+        this.messageFiles = messageFiles;
     }
 }
