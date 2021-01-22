@@ -7,6 +7,17 @@
   height: 100%;
 }
 
+mat-card-content {
+  margin-top: 15px;
+}
+
+.title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .messages {
   display: flex;
   overflow: auto;

@@ -1,8 +1,14 @@
 <div class="main-chat-field">
   <div class="messages">
     <mat-card *ngFor="let message of messages" class="{{getCssStyleForMessage(message)}}">
-      <mat-card-title>{{ message.sender.username }}</mat-card-title>
-      <mat-card-subtitle>{{ getSendDate(message.sendDate) }}</mat-card-subtitle>
+      <div class="title">
+        <img alt="alt" mat-card-avatar
+             src="https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1.jpg">
+        <mat-card-title>
+          {{ message.sender.username }}
+        </mat-card-title>
+        <mat-card-subtitle>{{ getSendDate(message.sendDate) }}</mat-card-subtitle>
+      </div>
       <mat-card-content>
         <p>{{ message.content }}</p>
       </mat-card-content>

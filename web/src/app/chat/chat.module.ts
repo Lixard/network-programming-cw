@@ -34,6 +34,7 @@ import { ChatCreateDialogComponent } from './main-chat-page/components/_dialogs/
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatChipsModule } from '@angular/material/chips';
 import { ChatComponent } from './main-chat-page/components/chat/chat.component';
+import { UserProfileDialogComponent } from './main-chat-page/components/_dialogs/user-profile-dialog/user-profile-dialog.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { ChatComponent } from './main-chat-page/components/chat/chat.component';
     ChatNavElementComponent,
     ChatCreateDialogComponent,
     ChatComponent,
+    UserProfileDialogComponent,
   ],
   imports: [
     CommonModule,
