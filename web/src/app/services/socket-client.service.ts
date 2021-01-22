@@ -57,10 +57,6 @@ export class SocketClientService implements OnDestroy {
     );
   }
 
-  onPlainMessage(topic: string): Observable<string> {
-    return this.onMessage(topic, SocketClientService.textHandler);
-  }
-
   send(topic: string, payload: any): void {
     this.connect()
       .pipe(first())

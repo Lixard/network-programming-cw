@@ -34,13 +34,15 @@ export class ChatComponent implements OnInit, OnChanges {
     this.buildForm();
     this.chatService.getChatMessages(this.chat.id).subscribe((m) => (this.messages = m));
     this.authService.user$.subscribe((u) => (this.currentUser = u));
-    this.socketClient.onMessage(`/ws/chats/${this.chat.id}`).subscribe((message: Message) => {
+    this.socketClient.onMessage(`/topic/chats/${this.chat.id}`).subscribe((message: Message) => {
+      console.log(message);
       this.messages.push(message);
     });
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.ngOnInit();
+    this.buildForm();
+    this.chatService.getChatMessages(this.chat.id).subscribe((m) => (this.messages = m));
   }
 
   addFile() {}
@@ -51,7 +53,8 @@ export class ChatComponent implements OnInit, OnChanges {
       content: form.message,
     } as MessageSend;
 
-    this.socketClient.send('/ws/messages', message);
+    // this.socketClient.send('/ws/messages', message);
+    this.messageService.sendMessage(message).subscribe();
     this.form.get('message').setValue('');
   }
 

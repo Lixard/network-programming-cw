@@ -46,6 +46,8 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public MessageGetDto sendMessage(MessageCreateDto message) {
         final var entity = messageMapper.fromCreateDto(message);
+        final var sender = userRepository.findById(message.getSenderId()).orElse(null);
+        entity.setUser(sender);
         final var saved = messageRepository.save(entity);
         final var chatUsers = userRepository.findAllByChatsId(message.getChatId());
         chatUsers.forEach(user -> {

@@ -3,8 +3,8 @@ import { Chat } from '../../../../models/chat.model';
 import { ChatService } from '../../../../services/chat.service';
 import { SocketClientService } from '../../../../services/socket-client.service';
 import { Observable } from 'rxjs';
-import { Message } from '../../../../models/message.model';
 import { AuthService } from '../../../../services/auth.service';
+import { Message } from '../../../../models/message.model';
 
 @Component({
   selector: 'app-chat-nav-element',
@@ -21,7 +21,8 @@ export class ChatNavElementComponent implements OnInit {
     private chatService: ChatService,
     private socketClient: SocketClientService,
     private authService: AuthService,
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.chatService
