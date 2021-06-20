@@ -5,6 +5,8 @@ import { Observable, Subject } from 'rxjs';
 import { ChatCreateDialogComponent } from './components/_dialogs/chat-create-dialog/chat-create-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MessageService } from '../../services/message.service';
+import { AuthService } from '../../services/auth.service';
+import { SocketClientService } from '../../services/socket-client.service';
 
 @Component({
   selector: 'app-main-chat-page',
@@ -18,12 +20,23 @@ export class MainChatPageComponent implements OnInit {
   chatNavEvent: Subject<void> = new Subject<void>();
 
   constructor(
+    private authService: AuthService,
     private chatService: ChatService,
     private messageService: MessageService,
     private dialog: MatDialog,
+    private socketClient: SocketClientService,
   ) {}
 
   ngOnInit(): void {
+    this.authService.user$.subscribe(user => {
+      this.socketClient
+        .onMessage(`/topic/users/${user.id}/chat-create`)
+        .subscribe((chat: Chat) => this.chatListElements.push(chat));
+
+      this.socketClient
+        .onMessage(`/topic/users/${user.id}/chat-remove`)
+        .subscribe((chatId: number) => this.chatListElements = this.chatListElements.filter((value) => value.id !== chatId));
+    });
     this.chatService.getUserChatList().subscribe((e) => (this.chatListElements = e));
   }
 
@@ -35,15 +48,10 @@ export class MainChatPageComponent implements OnInit {
     const dialogRef = this.dialog.open(ChatCreateDialogComponent, {
       width: '400px',
     });
-
-    dialogRef.afterClosed().subscribe(() => {
-      this.chatService.getUserChatList().subscribe((e) => (this.chatListElements = e));
-    });
   }
 
   selectChat(chat: Chat) {
     this.selectedChat = chat;
-    console.log(this.selectedChat);
     this.messageService.markChatMessagesAsRead(chat.id).subscribe(() => {
       this.chatNavEvent.next();
     });

@@ -1,16 +1,19 @@
 package ru.maxim.borisov.messenger.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import ru.maxim.borisov.messenger.dto.create.ChatCreateDto;
 import ru.maxim.borisov.messenger.dto.get.ChatGetDto;
 import ru.maxim.borisov.messenger.dto.update.ChatUpdateDto;
+import ru.maxim.borisov.messenger.entity.Chat;
 import ru.maxim.borisov.messenger.entity.User;
 import ru.maxim.borisov.messenger.mapper.ChatMapper;
 import ru.maxim.borisov.messenger.repository.ChatRepository;
 import ru.maxim.borisov.messenger.repository.UserRepository;
 import ru.maxim.borisov.messenger.service.ChatService;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,14 +26,19 @@ public class ChatServiceImpl implements ChatService {
     private final ChatRepository chatRepository;
     private final UserRepository userRepository;
     private final ChatMapper chatMapper;
+    private final SimpMessagingTemplate simpMessagingTemplate;
 
     @Autowired
-    public ChatServiceImpl(ChatRepository chatRepository,
-                           UserRepository userRepository,
-                           ChatMapper chatMapper) {
+    public ChatServiceImpl(
+            ChatRepository chatRepository,
+            UserRepository userRepository,
+            ChatMapper chatMapper,
+            SimpMessagingTemplate simpMessagingTemplate
+    ) {
         this.chatRepository = chatRepository;
         this.userRepository = userRepository;
         this.chatMapper = chatMapper;
+        this.simpMessagingTemplate = simpMessagingTemplate;
     }
 
     /**
@@ -43,8 +51,15 @@ public class ChatServiceImpl implements ChatService {
         final var users = formUsersFromIds(chatCreateDto.getParticipationIds());
         users.add(createdBy);
         chat.setUsers(users);
+
         final var saved = chatRepository.save(chat);
-        return chatMapper.toGetDto(saved);
+        final var chatGetDto = chatMapper.toGetDto(saved);
+
+        chatCreateDto.getParticipationIds().add(createdBy.getId());
+        chatCreateDto.getParticipationIds()
+                .forEach(userId ->
+                        simpMessagingTemplate.convertAndSend("/topic/users/" + userId + "/chat-create", chatGetDto));
+        return chatGetDto;
     }
 
     /**
@@ -64,6 +79,13 @@ public class ChatServiceImpl implements ChatService {
      */
     @Override
     public void delete(Long chatId) {
+        chatRepository.findById(chatId)
+                .map(Chat::getUsers)
+                .stream()
+                .flatMap(Collection::stream)
+                .map(User::getId)
+                .forEach(userId -> simpMessagingTemplate
+                        .convertAndSend("/topic/users/" + userId + "/chat-remove", chatId));
         chatRepository.deleteById(chatId);
     }
 
