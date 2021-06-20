@@ -48,4 +48,11 @@ public class UserServiceImpl implements UserService {
     public List<UserGetDto> getAll() {
         return userMapper.toGetDto(userRepository.findAll());
     }
+
+    @Override
+    public UserGetDto getById(long userId) {
+        return userRepository.findById(userId)
+                .map(userMapper::toGetDto)
+                .orElse(null);
+    }
 }

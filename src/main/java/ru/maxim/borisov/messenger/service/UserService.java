@@ -23,4 +23,6 @@ public interface UserService {
      * @return Список всех пользователей
      */
     List<UserGetDto> getAll();
+
+    UserGetDto getById(long userId);
 }

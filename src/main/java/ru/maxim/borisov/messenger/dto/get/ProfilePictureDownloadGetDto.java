@@ -7,6 +7,7 @@ import java.util.Arrays;
  */
 public class ProfilePictureDownloadGetDto {
     private Long id;
+    private String type;
     private String name;
     private byte[] data;
 
@@ -32,5 +33,13 @@ public class ProfilePictureDownloadGetDto {
 
     public void setData(byte[] data) {
         this.data = Arrays.copyOf(data, data.length);
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

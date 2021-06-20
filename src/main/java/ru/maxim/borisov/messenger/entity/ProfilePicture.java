@@ -25,6 +25,9 @@ public class ProfilePicture {
     @Column(name = "picture_id")
     private Long id;
 
+    @Column(name = "type", nullable = false)
+    private String type;
+
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -67,5 +70,13 @@ public class ProfilePicture {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

@@ -35,6 +35,7 @@ public interface MessageMapper {
      * @param message dto
      * @return сущность сообщения
      */
+    @Mapping(target = "messageFiles", ignore = true)
     @Mapping(target = "user", ignore = true)
     @Mapping(target = "chat", ignore = true)
     @Mapping(target = "messageStatuses", ignore = true)

@@ -63,6 +63,11 @@ public class UserController {
         return userService.getAll();
     }
 
+    @GetMapping(path = "/{userId}")
+    public UserGetDto getById(@PathVariable long userId) {
+        return userService.getById(userId);
+    }
+
     /**
      * Энд-поинт для обновления аватарки пользователя.
      *

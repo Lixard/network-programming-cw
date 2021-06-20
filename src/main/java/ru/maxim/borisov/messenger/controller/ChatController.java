@@ -2,7 +2,6 @@ package ru.maxim.borisov.messenger.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,10 +35,11 @@ public class ChatController {
     private final CurrentUser currentUser;
 
     @Autowired
-    public ChatController(ChatService chatService,
-                          MessageService messageService,
-                          CurrentUser currentUser,
-                          SimpMessagingTemplate simpMessagingTemplate) {
+    public ChatController(
+            ChatService chatService,
+            MessageService messageService,
+            CurrentUser currentUser
+    ) {
         this.chatService = chatService;
         this.messageService = messageService;
         this.currentUser = currentUser;

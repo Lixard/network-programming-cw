@@ -1,6 +1,5 @@
 import {
   AfterViewChecked,
-  AfterViewInit,
   Component,
   ElementRef,
   Input,
@@ -19,6 +18,8 @@ import { MessageService } from '../../../../services/message.service';
 import { AuthService } from '../../../../services/auth.service';
 import { CurrentUser } from '../../../../models/user.model';
 import { SocketClientService } from '../../../../services/socket-client.service';
+import { UserService } from '../../../../services/user.service';
+import { ProfilePicture } from '../../../../models/profile-picture';
 
 @Component({
   selector: 'app-chat',
@@ -46,6 +47,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
     private fb: FormBuilder,
     private authService: AuthService,
     private socketClient: SocketClientService,
+    private userService: UserService,
   ) {}
 
   ngOnInit(): void {
@@ -81,7 +83,6 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
       content: form.message,
     } as MessageSend;
 
-    // this.socketClient.send('/ws/messages', message);
     this.messageService.sendMessage(message).subscribe();
     this.form.get('message').setValue('');
   }
@@ -102,7 +103,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
     });
   }
 
-  private onScroll() {
+  onScroll() {
     const element = this.messageBox.nativeElement;
     const atBottom = element.scrollHeight - element.scrollTop === element.clientHeight;
     this.disableScrollDown = !(this.disableScrollDown && atBottom);
@@ -115,5 +116,11 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
     try {
       this.messageBox.nativeElement.scrollTop = this.messageBox.nativeElement.scrollHeight;
     } catch (err) {}
+  }
+
+  getPictureSource(picture: ProfilePicture): string {
+    return picture
+      ? `data:${picture.type};base64,${picture.data}`
+      : 'https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1.jpg';
   }
 }

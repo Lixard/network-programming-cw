@@ -28,6 +28,7 @@ public interface ProfilePictureMapper {
     @Mapping(target = "user.id", source = "userId")
     @Mapping(target = "data", source = "file", qualifiedByName = "getData")
     @Mapping(target = "name", expression = "java(file.getOriginalFilename())")
+    @Mapping(target = "type", expression = "java(file.getContentType())")
     ProfilePicture toEntity(Long userId, MultipartFile file);
 
     /**

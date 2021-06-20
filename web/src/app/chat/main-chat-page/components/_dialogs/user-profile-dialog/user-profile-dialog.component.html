@@ -1,1 +1,12 @@
-<p>user-profile-dialog works!</p>
+<div class="main">
+  <div class="form-group">
+    <label for="file">Выбрать изображение</label><br />
+    <input (change)="handleFileInput($event.target.files)" accept="image/*" id="file" type="file" />
+  </div>
+
+  <div>
+    <button (click)="upload()" color="primary" mat-flat-button type="button">
+      Обновить аватар
+    </button>
+  </div>
+</div>

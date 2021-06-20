@@ -16,13 +16,16 @@
       <button (click)="deleteChat()" mat-menu-item>Удалить чат</button>
     </mat-menu>
   </div>
-  <div>
+  <div class="inline">
+
     <button [mat-menu-trigger-for]="menu" mat-button>
+      <img [src]="getPictureSource(this.user.picture)" alt="alt"
+           class="round">
       {{ (auth.user$ | async)?.username }}
       <mat-icon>keyboard_arrow_down</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>Профиль</button>
+      <button (click)="updatePicture()" mat-menu-item>Изменить аватар</button>
       <button (click)="logout()" mat-menu-item>Выйти</button>
     </mat-menu>
   </div>

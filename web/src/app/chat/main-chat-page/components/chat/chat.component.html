@@ -3,7 +3,10 @@
     <mat-card *ngFor="let message of messages" class="{{getCssStyleForMessage(message)}}">
       <div class="title">
         <img alt="alt" mat-card-avatar
-             src="https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1.jpg">
+             [src]="getPictureSource(message.sender.picture)">
+        <!--        <img class="round" src="data:{{project.picture.type}};base64,{{project.picture.data}}" width="350"-->
+        <!--             height="320"-->
+        <!--             alt="User-Profile-Image">-->
         <mat-card-title>
           {{ message.sender.username }}
         </mat-card-title>

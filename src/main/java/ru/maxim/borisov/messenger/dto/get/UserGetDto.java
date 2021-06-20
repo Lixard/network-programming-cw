@@ -8,6 +8,7 @@ public class UserGetDto {
 
     private Long id;
     private String username;
+    private ProfilePictureDownloadGetDto picture;
 
     public Long getId() {
         return id;
@@ -23,5 +24,13 @@ public class UserGetDto {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public ProfilePictureDownloadGetDto getPicture() {
+        return picture;
+    }
+
+    public void setPicture(ProfilePictureDownloadGetDto picture) {
+        this.picture = picture;
     }
 }

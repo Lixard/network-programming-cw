@@ -1,3 +1,5 @@
+import { ProfilePicture } from './profile-picture';
+
 export interface UserForm {
   username: string;
   password: string;
@@ -6,6 +8,7 @@ export interface UserForm {
 export interface User {
   id: number;
   username: string;
+  picture: ProfilePicture;
 }
 
 export interface AuthenticatedUser {

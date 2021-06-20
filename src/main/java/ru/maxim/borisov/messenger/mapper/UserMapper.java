@@ -20,6 +20,7 @@ public interface UserMapper {
      * @param user сущность
      * @return dto
      */
+    @Mapping(target = "picture", source = "profilePicture")
     UserGetDto toGetDto(User user);
 
     /**
