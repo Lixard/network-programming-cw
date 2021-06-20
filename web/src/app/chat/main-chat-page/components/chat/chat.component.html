@@ -1,5 +1,5 @@
 <div class="main-chat-field">
-  <div class="messages">
+  <div #messageBox class="messages" (scroll)="onScroll()">
     <mat-card *ngFor="let message of messages" class="{{getCssStyleForMessage(message)}}">
       <div class="title">
         <img alt="alt" mat-card-avatar

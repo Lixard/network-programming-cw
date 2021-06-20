@@ -1,28 +1,44 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import {
+  AfterViewChecked,
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import * as moment from 'moment';
+import { Subscription } from 'rxjs';
 import { Chat } from '../../../../models/chat.model';
 import { Message, MessageSend } from '../../../../models/message.model';
 import { ChatService } from '../../../../services/chat.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from '../../../../services/message.service';
-import * as moment from 'moment';
 import { AuthService } from '../../../../services/auth.service';
 import { CurrentUser } from '../../../../models/user.model';
 import { SocketClientService } from '../../../../services/socket-client.service';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss'],
 })
-export class ChatComponent implements OnInit, OnChanges {
+export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
   @Input() chat: Chat;
+
   form: FormGroup;
 
+  @ViewChild('messageBox') messageBox: ElementRef;
+
   currentUser: CurrentUser;
+
   messages: Message[] = [];
 
   wsSub: Subscription;
+
+  disableScrollDown = false;
 
   constructor(
     private chatService: ChatService,
@@ -30,17 +46,18 @@ export class ChatComponent implements OnInit, OnChanges {
     private fb: FormBuilder,
     private authService: AuthService,
     private socketClient: SocketClientService,
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.buildForm();
     this.chatService.getChatMessages(this.chat.id).subscribe((m) => (this.messages = m));
     this.authService.user$.subscribe((u) => (this.currentUser = u));
-    this.wsSub = this.socketClient.onMessage(`/topic/chats/${this.chat.id}`)
+    this.wsSub = this.socketClient
+      .onMessage(`/topic/chats/${this.chat.id}`)
       .subscribe((message: Message) => {
         console.log(message);
         this.messages.push(message);
+        this.disableScrollDown = false;
       });
   }
 
@@ -48,11 +65,15 @@ export class ChatComponent implements OnInit, OnChanges {
     if (this.wsSub) {
       this.wsSub.unsubscribe();
       this.ngOnInit();
+      this.disableScrollDown = false;
     }
   }
 
-  addFile() {
+  ngAfterViewChecked() {
+    this.scrollToBottom();
   }
+
+  addFile() {}
 
   send(form) {
     const message: MessageSend = {
@@ -66,7 +87,7 @@ export class ChatComponent implements OnInit, OnChanges {
   }
 
   getSendDate(date: string): string {
-    let momentDate = moment.utc(date);
+    const momentDate = moment.utc(date);
     momentDate.locale('ru');
     return momentDate.utcOffset('+03:00').format('llll');
   }
@@ -79,5 +100,20 @@ export class ChatComponent implements OnInit, OnChanges {
     this.form = this.fb.group({
       message: this.fb.control('', Validators.required),
     });
+  }
+
+  private onScroll() {
+    const element = this.messageBox.nativeElement;
+    const atBottom = element.scrollHeight - element.scrollTop === element.clientHeight;
+    this.disableScrollDown = !(this.disableScrollDown && atBottom);
+  }
+
+  private scrollToBottom() {
+    if (this.disableScrollDown) {
+      return;
+    }
+    try {
+      this.messageBox.nativeElement.scrollTop = this.messageBox.nativeElement.scrollHeight;
+    } catch (err) {}
   }
 }
