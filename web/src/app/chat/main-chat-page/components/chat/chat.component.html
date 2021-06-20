@@ -24,7 +24,7 @@
     </button>
     <mat-form-field class="input-field">
       <mat-label>Сообщение</mat-label>
-      <input formControlName="message" matInput/>
+      <input (keydown.enter)="send(form.value)" formControlName="message" matInput/>
       <mat-error *ngIf="form.get('message').hasError('required')"
       >Сообщение не должно быть пустым
       </mat-error>

@@ -28,14 +28,17 @@ export class MainChatPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authService.user$.subscribe(user => {
+    this.authService.user$.subscribe((user) => {
       this.socketClient
         .onMessage(`/topic/users/${user.id}/chat-create`)
         .subscribe((chat: Chat) => this.chatListElements.push(chat));
 
       this.socketClient
         .onMessage(`/topic/users/${user.id}/chat-remove`)
-        .subscribe((chatId: number) => this.chatListElements = this.chatListElements.filter((value) => value.id !== chatId));
+        .subscribe(
+          (chatId: number) =>
+            (this.chatListElements = this.chatListElements.filter((value) => value.id !== chatId)),
+        );
     });
     this.chatService.getUserChatList().subscribe((e) => (this.chatListElements = e));
   }
@@ -45,7 +48,7 @@ export class MainChatPageComponent implements OnInit {
   }
 
   createChat() {
-    const dialogRef = this.dialog.open(ChatCreateDialogComponent, {
+    this.dialog.open(ChatCreateDialogComponent, {
       width: '400px',
     });
   }
