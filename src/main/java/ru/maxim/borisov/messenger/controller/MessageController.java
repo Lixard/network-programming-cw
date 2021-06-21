@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import ru.maxim.borisov.messenger.dto.create.MessageCreateDto;
@@ -56,12 +57,12 @@ public class MessageController {
      * @param message сообщение
      * @return зарегистрированное в системе сообщение
      */
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public MessageGetDto processMessages(@RequestBody MessageCreateDto message) {
-        message.setSenderId(currentUser.getId());
-        final var messageGetDto = messageService.sendMessage(message);
-        simpMessagingTemplate.convertAndSend("/topic/chats/" + message.getChatId(), messageGetDto);
-        return messageGetDto;
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public MessageGetDto processMessages(
+            @RequestPart("json") MessageCreateDto message,
+            @RequestPart(value = "files", required = false) List<MultipartFile> files
+    ) {
+        return messageService.saveMessageAndFiles(message, files);
     }
 
     /**

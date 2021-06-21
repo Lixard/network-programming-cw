@@ -1,5 +1,6 @@
 package ru.maxim.borisov.messenger.service;
 
+import org.springframework.web.multipart.MultipartFile;
 import ru.maxim.borisov.messenger.dto.create.MessageCreateDto;
 import ru.maxim.borisov.messenger.dto.get.MessageGetDto;
 
@@ -41,4 +42,7 @@ public interface MessageService {
      * @param userId идентификатор пользователя
      */
     void markChatMessagesAsRead(Long chatId, Long userId);
+
+
+    MessageGetDto saveMessageAndFiles(MessageCreateDto dto, List<MultipartFile> files);
 }

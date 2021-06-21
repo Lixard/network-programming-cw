@@ -96,11 +96,11 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
     if (message.content.length <= 0) {
       return;
     }
-    this.messageService.sendMessage(message).subscribe((message) => {
-      this.files.forEach((file) => this.messageService.saveFile(message.id, file).subscribe());
+    this.messageService.saveMessageAndFile(message, this.files).subscribe((value) => {
+      console.log(value);
       this.files = [];
+      this.form.get('message').setValue('');
     });
-    this.form.get('message').setValue('');
   }
 
   getSendDate(date: string): string {
