@@ -1,6 +1,7 @@
 package ru.maxim.borisov.messenger.dto.get;
 
 import java.time.Instant;
+import java.util.List;
 
 /**
  * Dto для получения сообщения.
@@ -11,6 +12,7 @@ public class MessageGetDto {
     private String content;
     private UserGetDto sender;
     private Instant sendDate;
+    private List<FileGetDto> files;
 
     public Long getId() {
         return id;
@@ -42,5 +44,13 @@ public class MessageGetDto {
 
     public void setSendDate(Instant sendDate) {
         this.sendDate = sendDate;
+    }
+
+    public List<FileGetDto> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<FileGetDto> files) {
+        this.files = files;
     }
 }

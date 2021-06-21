@@ -35,6 +35,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatChipsModule } from '@angular/material/chips';
 import { ChatComponent } from './main-chat-page/components/chat/chat.component';
 import { UserProfileDialogComponent } from './main-chat-page/components/_dialogs/user-profile-dialog/user-profile-dialog.component';
+import { DragAndDropDialogComponent } from './main-chat-page/components/_dialogs/drag-and-drop-dialog/drag-and-drop-dialog.component';
+import { DndDirective } from './main-chat-page/components/_dialogs/drag-and-drop-dialog/directives/dnd.directive';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,8 @@ import { UserProfileDialogComponent } from './main-chat-page/components/_dialogs
     ChatCreateDialogComponent,
     ChatComponent,
     UserProfileDialogComponent,
+    DragAndDropDialogComponent,
+    DndDirective,
   ],
   imports: [
     CommonModule,

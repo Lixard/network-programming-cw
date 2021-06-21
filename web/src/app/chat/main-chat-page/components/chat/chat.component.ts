@@ -11,6 +11,7 @@ import {
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
 import { Chat } from '../../../../models/chat.model';
 import { Message, MessageSend } from '../../../../models/message.model';
 import { ChatService } from '../../../../services/chat.service';
@@ -18,8 +19,10 @@ import { MessageService } from '../../../../services/message.service';
 import { AuthService } from '../../../../services/auth.service';
 import { CurrentUser } from '../../../../models/user.model';
 import { SocketClientService } from '../../../../services/socket-client.service';
-import { UserService } from '../../../../services/user.service';
 import { ProfilePicture } from '../../../../models/profile-picture';
+import { DragAndDropDialogComponent } from '../_dialogs/drag-and-drop-dialog/drag-and-drop-dialog.component';
+import { FileInfoModel } from '../../../../models/file.model';
+import { DownloadFileService } from '../../../../services/download-file.service';
 
 @Component({
   selector: 'app-chat',
@@ -41,13 +44,16 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
 
   disableScrollDown = false;
 
+  files: File[];
+
   constructor(
     private chatService: ChatService,
     private messageService: MessageService,
     private fb: FormBuilder,
     private authService: AuthService,
     private socketClient: SocketClientService,
-    private userService: UserService,
+    private dialog: MatDialog,
+    private downloadFileService: DownloadFileService,
   ) {}
 
   ngOnInit(): void {
@@ -75,15 +81,25 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
     this.scrollToBottom();
   }
 
-  addFile() {}
+  addFile() {
+    this.dialog
+      .open(DragAndDropDialogComponent)
+      .afterClosed()
+      .subscribe((files) => (this.files = files));
+  }
 
   send(form) {
     const message: MessageSend = {
       chatId: this.chat.id,
       content: form.message,
     } as MessageSend;
-
-    this.messageService.sendMessage(message).subscribe();
+    if (message.content.length <= 0) {
+      return;
+    }
+    this.messageService.sendMessage(message).subscribe((message) => {
+      this.files.forEach((file) => this.messageService.saveFile(message.id, file).subscribe());
+      this.files = [];
+    });
     this.form.get('message').setValue('');
   }
 
@@ -122,5 +138,11 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
     return picture
       ? `data:${picture.type};base64,${picture.data}`
       : 'https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1.jpg';
+  }
+
+  downloadFile(messageId: number, file: FileInfoModel) {
+    this.messageService
+      .downloadFile(messageId, file.id)
+      .subscribe((blob) => this.downloadFileService.downloadFile(blob, file.mimeType));
   }
 }

@@ -14,6 +14,13 @@
       </div>
       <mat-card-content>
         <p>{{ message.content }}</p>
+        <div *ngFor="let file of message.files">
+          <br>
+          <div class="file">
+            <mat-icon>text_snippet</mat-icon>
+            <a (click)="downloadFile(message.id, file)">{{file.name}}</a>
+          </div>
+        </div>
       </mat-card-content>
     </mat-card>
     <div *ngIf="messages.length === 0" class="no-msg-notify">
@@ -22,7 +29,7 @@
   </div>
 
   <form [formGroup]="form" class="form">
-    <button (click)="addFile()" mat-icon-button>
+    <button (click)="addFile()" mat-icon-button type="button">
       <mat-icon>add</mat-icon>
     </button>
     <mat-form-field class="input-field">

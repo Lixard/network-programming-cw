@@ -26,6 +26,7 @@ public interface MessageMapper {
      * @param message сущность сообщения
      * @return dto
      */
+    @Mapping(target = "files", source = "messageFiles")
     @Mapping(target = "sender", source = "user")
     MessageGetDto toGetDto(Message message);
 
