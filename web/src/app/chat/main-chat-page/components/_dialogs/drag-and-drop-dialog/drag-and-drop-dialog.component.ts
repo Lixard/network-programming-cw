@@ -23,7 +23,7 @@ export class DragAndDropDialogComponent implements OnInit, OnDestroy {
   }
 
   fileBrowseHandler(files: FileList) {
-    this.prepareFilesList(files);
+    this.prepareFilesList(Array.from(files));
   }
 
   onFileDropped($event: any) {
