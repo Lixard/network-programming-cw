@@ -50,10 +50,13 @@ export class MainToolbarComponent implements OnInit {
   }
 
   updatePicture() {
-    this.dialog.open(UserProfileDialogComponent, {
-      height: '200px',
-      width: '300px',
-    });
+    this.dialog
+      .open(UserProfileDialogComponent, {
+        height: '200px',
+        width: '300px',
+      })
+      .afterClosed()
+      .subscribe(() => this.ngOnInit());
   }
 
   getPictureSource(picture: ProfilePicture): string {
