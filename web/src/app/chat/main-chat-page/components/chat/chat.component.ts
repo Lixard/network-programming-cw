@@ -44,7 +44,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
 
   disableScrollDown = false;
 
-  files: File[];
+  files: File[] = [];
 
   constructor(
     private chatService: ChatService,
@@ -83,7 +83,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
 
   addFile() {
     this.dialog
-      .open(DragAndDropDialogComponent)
+      .open(DragAndDropDialogComponent, { data: this.files })
       .afterClosed()
       .subscribe((files) => (this.files = files));
   }
@@ -98,8 +98,8 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
     }
     this.messageService.saveMessageAndFile(message, this.files).subscribe((value) => {
       console.log(value);
-      this.files = [];
       this.form.get('message').setValue('');
+      this.files = [];
     });
   }
 

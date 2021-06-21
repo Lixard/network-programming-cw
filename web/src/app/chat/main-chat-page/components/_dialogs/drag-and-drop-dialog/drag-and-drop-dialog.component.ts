@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-drag-and-drop-dialog',
@@ -7,17 +7,22 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./drag-and-drop-dialog.component.css'],
 })
 export class DragAndDropDialogComponent implements OnInit, OnDestroy {
-  files: any = [];
+  files: File[] = [];
 
-  constructor(private dialogRef: MatDialogRef<DragAndDropDialogComponent>) {}
+  constructor(
+    private dialogRef: MatDialogRef<DragAndDropDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.files = this.data;
+  }
 
   ngOnDestroy(): void {
     this.dialogRef.close(this.files);
   }
 
-  fileBrowseHandler(files: any) {
+  fileBrowseHandler(files: FileList) {
     this.prepareFilesList(files);
   }
 
@@ -25,7 +30,7 @@ export class DragAndDropDialogComponent implements OnInit, OnDestroy {
     this.prepareFilesList($event);
   }
 
-  prepareFilesList(files: Array<any>) {
+  prepareFilesList(files: Array<File>) {
     for (const item of files) {
       this.files.push(item);
     }
